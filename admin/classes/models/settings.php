@@ -6,15 +6,7 @@ class Settings extends Admin {
 		
 		if(isset($_POST['edit_settings']) && $_POST['edit_settings'] == "edit") {
 			unset($_POST['edit_settings']);
-			if(isset($_POST['check_registration'])) {
-				//echo "POST[disable_registration] = ".$_POST['disable_registration'];
-				$_POST['disable_registration'] = isset($_POST['disable_registration']) ? 1 : 0;
-				unset($_POST['check_registration']);
-			}
-			if(isset($_POST['check_view_admin_panel'])) {
-				$_POST['view_admin_panel'] = isset($_POST['view_admin_panel']) ? 1 : 0;
-				unset($_POST['check_view_admin_panel']);
-			}			
+                        unset($_POST['check']);
 			foreach ($_POST as $key => $value) {
 				dB::updateSettings($key, $value);
 			}

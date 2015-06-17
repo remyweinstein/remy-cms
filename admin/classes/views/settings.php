@@ -1,6 +1,13 @@
 <?php
 $arr_settings = $contentPage -> arrSettings();
 ?>
+
+<script>
+    $(document).ready(function() {
+      $(':checkbox').iphoneStyle();
+    });
+</script>
+
 <div id="content" class="col-lg-10 col-sm-10">
 
 <ul class="nav nav-tabs" id="myTab">
@@ -67,13 +74,11 @@ foreach ($arr_settings['system'] as $value) {
     } else if($value[1] == "view_admin_panel") {
 ?>
 <tr>
-<td style="height:40px;width:250px;">
-	<?php echo $value[0] ?>:
-</td>
-<td style="height:40px;">
-        	<input data-no-uniform="true" name="<?php echo $value[1] ?>" type="checkbox" class="iphone-toggle"<?php echo $value[2]==1 ? " checked" : ""; ?>>
-</td>
-        	<input type="hidden" name="check_view_admin_panel" value="1" />
+    <td style="height:40px;width:250px;"><?php echo $value[0] ?>:</td>
+    <td style="height:40px;">
+        <input name="check" id="<?php echo $value[1] ?>" type="checkbox"<?php echo ($value[2]==1) ? " checked" : ""; ?>>
+        <input type="hidden" name="<?php echo $value[1] ?>" value="<?php echo $value[2] ?>" />
+    </td>
 <?php } else { ?>
 <tr>
 <td style="height:40px;width:250px;"><?php echo $value[0] ?>:</td>
@@ -186,14 +191,12 @@ foreach ($arr_settings['security'] as $value) {
     if($value[1]=="disable_registration") {
 ?>
 <tr>
-<td style="height:40px;width:250px;">
-	<?php echo $value[0] ?>:
-</td>
-<td style="height:40px;">
-<input data-no-uniform="true" name="<?php echo $value[1] ?>" type="checkbox"<?php echo $value[2]==1 ? " checked" : ""; ?>>
-</td>
+    <td style="height:40px;width:250px;"><?php echo $value[0] ?>:</td>
+    <td style="height:40px;">
+        <input name="check" id="<?php echo $value[1] ?>" type="checkbox" value="1"<?php echo ($value[2]==1) ? " checked" : ""; ?>>
+        <input type="hidden" name="<?php echo $value[1] ?>" value="<?php echo $value[2] ?>" />
+    </td>
 </tr>
-<input type="hidden" name="check_registration" value="1" />
 <?php
 		} else {
 ?>
