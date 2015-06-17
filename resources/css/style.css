@@ -1,0 +1,197 @@
+
+@import url(http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&subset=latin,cyrillic);
+@import url(http://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic);
+#adminPanel {
+            color: #474f51;
+        font-size: 13.5pt;
+        font-family: 'Open Sans Condensed';
+        line-height: 1.85em; 
+}
+#adminPanel select {
+            color: #474f51;
+        font-size: 13.5pt;
+        font-family: 'Open Sans Condensed';
+        line-height: 1.85em; 
+}
+.hide-layout {
+    position: fixed;
+    background-color: #000;
+    opacity: 0.8;
+    width: 100%; 
+    height: 100%;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    display: none;
+    z-index: 998;
+}
+button {
+    margin: 5px 10px 10px;     
+    outline: none;
+    cursor: pointer;   
+    text-align: center;
+    font: 12px/100% Arial, Helvetica, sans-serif;
+    padding: 5px 10px; 
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    color: #606060;
+    border: solid 1px #b7b7b7; 
+    background: #fff;
+    background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ededed));
+    background: -moz-linear-gradient(top,  #fff,  #ededed);
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed');
+}
+/* Edit Content Block */
+#editContentBlock {
+    display: none;
+    z-index: 999;
+}
+#status {
+    display:none;
+    margin-bottom:15px;
+    padding:5px 10px;
+    border-radius:5px;
+}
+#save {
+    z-index: 999;
+}
+#save:hover {
+    background: #ededed;
+    background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#dcdcdc));
+    background: -moz-linear-gradient(top,  #fff,  #dcdcdc);
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dcdcdc');
+}
+/* Edit Modules Block*/
+.editModuleBlock {
+    display: none;
+    z-index: 999;
+}
+/* Open Boxes  */
+.modal_form {
+    width: 400px; 
+    min-height: 300px;
+    border-radius: 5px;
+    border: 3px #8080FF solid;
+    background: #fff;
+    position: fixed;
+    top: 40%;
+    left: 45%;
+    margin-top: -150px;
+    margin-left: -150px;
+    display: none;
+    opacity: 0;
+    z-index: 999;
+    padding: 10px 10px;
+}
+.modal_title {
+    width:390px;
+    height:17px;
+    border-radius: 5px;
+    padding:10px 0px 10px 10px;
+    font-weight: bold;
+    color:#8080FF;
+    background-color: #F0F0F0;
+    }
+.modal_close {
+    width:25px;
+    height:25px;
+    float:right;
+    cursor: pointer;
+    background: url(../images/close.png) no-repeat;
+    }
+.modal_content {
+    clear:both;
+    margin-top: 10px;
+    }
+/* Gallery Module */
+#drop-block {
+    margin: 5px;
+    width: 80px;
+    height: 80px;
+    border: 2px solid lightgray;
+    border-radius: 8px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    text-align: center;
+    cursor:pointer;
+}
+#drop-block div {
+    margin: 15px 0px;
+    color: lightgray;
+    font-size: 45px;
+    font-weight: bold;
+    font-family: Verdana, Arial, sans-serif;
+}
+/* Module Gallery  */
+#module_gallery div {
+    text-align: center;
+    float:left;
+    padding:5px;
+    margin:10px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 2px #D0D0D0 solid;
+    background: #FFFFFF;
+}
+.popup_image { position: absolute; left: 0; top: 50px; width: 100%; height:100%; z-index: 99999; text-align: center; line-height: 0; display:none;}
+.view_image_from_gallery {
+    position: absolute;
+    left:50%;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: solid 2px #F0F0F0;
+    background: #F0F0F0;
+        -moz-box-shadow:0 0 6px #FFFFFF;
+        -webkit-box-shadow:0 0 6px #FFFFFF;
+        box-shadow:0 0 6px #FFFFFF;
+    }
+.view_image_from_gallery > div > img {
+    margin: 10px;
+    }
+.view_image_from_gallery > div > span {
+    margin: 0px 10px 0px 10px;
+    padding-top: 5px;
+    }
+#editContentBlock > button, .file_upload > button {
+    float:right;
+    margin: 5px 2px 0px 2px;
+    outline: none;
+    cursor: pointer;   
+    text-align: center;
+    font: 12px/100% Arial, Helvetica, sans-serif;
+    padding: 1px 1px 1px 5px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    color: #606060;
+    border: solid 1px #C0C0FF; /*C0C0FF*/
+    background: none;    
+}
+#editContentBlock > button:hover, .file_upload > button:hover {
+    border: solid 1px #F0F0F0;
+}
+.file_upload {
+    float:right;
+    position: relative;
+    overflow: hidden;
+    font-size: 1em;
+    height: 33px;
+    width:32px;
+    cursor:pointer;
+}
+.file_upload input[type=file]{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width:30px;
+    height: 30px;
+    transform: scale(20);
+    letter-spacing: 10em; 
+    -ms-transform: scale(20);
+    opacity: 0;
+}
+
+
