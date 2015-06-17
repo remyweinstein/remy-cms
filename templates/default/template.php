@@ -23,7 +23,7 @@
     				<a href="" class="menu-contacts">Контакты</a>
     			</div>
     			<div class="header-phone">
-    				Телефон: (4212) <span>93-10-23</span>
+    				Телефон: (your) <span>P-H-O-N-E</span>
     			</div>
     		</div>
 		</header>
