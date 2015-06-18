@@ -21,9 +21,11 @@
 <link href="<?php echo HOST_TEMPL; ?>css/jquery.iphone.toggle.css" rel="stylesheet">
 <link href="<?php echo HOST_TEMPL; ?>css/uploadify.css" rel="stylesheet">
 <link href="<?php echo HOST_TEMPL; ?>css/animate.min.css" rel="stylesheet">
- 
+<link href="<?php echo HOST_TEMPL; ?>css/bootstrap-wysiwyg.css" rel="stylesheet">
+
 <script src="<?php echo HOST_TEMPL; ?>js/jquery.min.js"></script>
 <script src="<?php echo HOST_TEMPL; ?>js/bootstrap-wysiwyg.js"></script>
+
  
 <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>

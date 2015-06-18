@@ -107,16 +107,14 @@ class dBShop extends dB {
 	public static function updateCat($data) {
 		$result = false;
 		if($data) {
-			$query = self::$database->prepare("UPDATE ".PREFIX."catalog_cats SET title=:title, url=:url, content=:content, parent=:parent, active=:active, parsing_source=:source, parsing_data=:data WHERE id=:id");
+			$query = self::$database->prepare("UPDATE ".PREFIX."catalog_cats SET title=:title, url=:url, content=:content, parent=:parent, active=:active WHERE id=:id");
 			$result = $query->execute(array(
 					':id'  => $data['id'],
 					':title'  => $data['title'],
 					':url'  => $data['url'],
 					':content'  => $data['content'],
 					':parent'  => $data['parent'],
-					':active'  => $data['active'],
-					':source'  => $data['source'],
-					':data'  => $data['data'] ));
+					':active'  => $data['active'] ));
 		}
 		 
 		return $result;
@@ -125,7 +123,7 @@ class dBShop extends dB {
 	public static function newCat($data) {
 		$result = false;
 		if($data) {
-			$query = self::$database->prepare("INSERT ".PREFIX."catalog_cats (id, title, url, content, picture, parent, is_parent, active, parsing_source, parsing_data) VALUES (:id, :title, :url, :content, :picture, :parent, :is_parent, :active, :source, :data)");
+			$query = self::$database->prepare("INSERT ".PREFIX."catalog_cats (id, title, url, content, picture, parent, is_parent, active, parsing_source, parsing_data) VALUES (:id, :title, :url, :content, :picture, :parent, :is_parent, :active)");
 			$result = $query->execute(array(
 					':id'  => '',
 					':title'  => $data['title'],
@@ -134,9 +132,7 @@ class dBShop extends dB {
 					':picture'  => '',
 					':parent'  => $data['parent'],
 					':is_parent'  => 0,
-					':active'  => $data['active'],
-					':source'  => $data['source'],
-					':data'  => $data['data'] ));
+					':active'  => $data['active'] ));
 		}
 		 
 		return $result;
