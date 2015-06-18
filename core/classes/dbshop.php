@@ -123,7 +123,7 @@ class dBShop extends dB {
 	public static function newCat($data) {
 		$result = false;
 		if($data) {
-			$query = self::$database->prepare("INSERT ".PREFIX."catalog_cats (id, title, url, content, picture, parent, is_parent, active, parsing_source, parsing_data) VALUES (:id, :title, :url, :content, :picture, :parent, :is_parent, :active)");
+			$query = self::$database->prepare("INSERT ".PREFIX."catalog_cats (id, title, url, content, picture, parent, is_parent, active) VALUES (:id, :title, :url, :content, :picture, :parent, :is_parent, :active)");
 			$result = $query->execute(array(
 					':id'  => '',
 					':title'  => $data['title'],
