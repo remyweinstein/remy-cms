@@ -152,7 +152,7 @@ class dBShop extends dB {
     public static function getContentCatById($id) {
     	$result = false;
     	if($id) {
-    		$query = self::$database->prepare("SELECT id,url,active,content,title,parent, parsing_source, parsing_data FROM ".PREFIX."catalog_cats WHERE id = :id");
+    		$query = self::$database->prepare("SELECT id,url,active,content,title,parent FROM ".PREFIX."catalog_cats WHERE id = :id");
     		$query->execute(array(':id' => $id));
     		$result = $query->fetch();
     	}

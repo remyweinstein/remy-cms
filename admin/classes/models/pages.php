@@ -6,7 +6,7 @@ class Pages extends Admin {
 		
 		if(isset($_GET['delete_page'])) { // Удаление страницы
 			$delete_page = intval($_GET['delete_page']);
-			if($delete_page>3) {
+			if($delete_page>1) {
 				// Удаляем дочерние страницы
 				dB::deleteParentPages($delete_page);
 				// Проверяем есть ли дочерние страницы у родителя
@@ -30,10 +30,12 @@ class Pages extends Admin {
 				$id = $_GET['edit_page'];
 				$data['id'] = $id;
 				$data['title'] = $_POST['edit_title'];
-				$data['url'] = $_POST['edit_url'];
+				$data['url'] = ($id==1) ? "index" : $_POST['edit_url'];
 				$data['content'] = $_POST['edit_content'];
 				$data['parent'] = $_POST['edit_parent'];
 				$data['template'] = $_POST['edit_template'];
+                                if($data['url']=="") $data['url'] = Engine::Translit($data['title']);
+                                
 				$parent = dB::findParentPage($id);
 				
 				dB::updatePage($data);
@@ -49,6 +51,7 @@ class Pages extends Admin {
 				$data['content'] = $_POST['edit_content'];
 				$data['parent'] = $_POST['edit_parent'];
 				$data['template'] = $_POST['edit_template'];
+                                if($data['url']=="") $data['url'] = Engine::Translit($data['title']);
 					
 				dB::newPage($data);
 				if($_POST['edit_parent']>0) dB::checkIsParentPage($_POST['edit_parent']);
@@ -94,16 +97,18 @@ class Pages extends Admin {
 		$result = dB::getAllPagesForTree($parent);
 		for($i=0;$i<count($result);$i++) {	
 			$content .= '<li class="admin_page">
- 			<a href="/admin/pages/?delete_page='.$result[$i]['id'].'"><i class="glyphicon glyphicon-trash"></i></a>
- 			<a href="/admin/pages/?add_page='.$result[$i]['id'].'"><i class="glyphicon glyphicon-plus"></i></a>';
+ 			<a href="/admin/pages/?delete_page='.$result[$i]['id'].'" alt="Удалить страницу" title="Удалить страницу"><i class="glyphicon glyphicon-trash"></i></a>
+ 			<a href="/admin/pages/?add_page='.$result[$i]['id'].'" alt="Добавить дочернюю страницу" title="Добавить дочернюю страницу"><i class="glyphicon glyphicon-plus"></i></a>
+			<a href="/admin/pages/?edit_page='.$result[$i]['id'].'" alt="Редактировать страницу" title="Редактировать страницу"><i class="glyphicon glyphicon-edit"></i></a>';
 			if($result[$i]['is_parent'] == 1) {
-				$content .= '<a href="#" onClick="openSubPage('.$result[$i]['id'].');"><i class="glyphicon glyphicon-folder-close" id="pages'.$result[$i]['id'].'"></i></a>';
+				$content .= '<a href="#" onClick="openSubPage('.$result[$i]['id'].');" alt="Раскрыть" title="Раскрыть"><i class="glyphicon glyphicon-folder-close" id="pages'.$result[$i]['id'].'"></i>';
 			} else {
 				$content .= '<i class="glyphicon glyphicon-folder-close" style="color:#F0F0F0;"></i>';
 			}
-			$content .= '<a href="/admin/pages/?edit_page='.$result[$i]['id'].'"><i class="glyphicon glyphicon-edit"></i> <span>'.$result[$i]['title'].'</span></a>';
+                        $content .= '<span>'.$result[$i]['title'].'</span>';
 			if($result[$i]['is_parent'] == 1) {
-				$content .= $this->printTreePages($result[$i]['id'], true);
+				$content .= '</a>'.
+                                        $this->printTreePages($result[$i]['id'], true);
 			}
 			$content .= '</li>
   			';

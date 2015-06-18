@@ -21,8 +21,7 @@ class Catalogs extends Admin {
 			$data['url'] = $_POST['edit_url'];
 			$data['content'] = $_POST['edit_content'];
 			$data['parent'] = $_POST['edit_parent'];
-			$data['id'] = $_GET['edit_category'];
-                        
+			$data['id'] = $_GET['edit_category'];                        
                         if($data['url']=="") $data['url'] = Engine::Translit($data['title']);
 				
 			if(isset($_GET['edit_category']) && $_GET['edit_category'] > 0) { // Редактируем категорию
@@ -70,7 +69,6 @@ class Catalogs extends Admin {
  			<a href="/admin/catalogs/?delete_category='.$result[$i]['id'].'" alt="Удалить категорию" title="Удалить категорию"><i class="glyphicon glyphicon-trash"></i></a>
  			<a href="/admin/catalogs/?add_category='.$result[$i]['id'].'" alt="Добавить дочернюю категорию" title="Добавить дочернюю категорию"><i class="glyphicon glyphicon-plus"></i></a>
  			<a href="/admin/catalogs/?edit_category='.$result[$i]['id'].'" alt="Редактировать категорию" title="Редактировать категорию"><i class="glyphicon glyphicon-edit"></i></a>
- 			<a href="/admin/catalogs/?parsing_goods='.$result[$i]['id'].'" alt="Parsing Goods" title="Parsing Goods"><i class="glyphicon glyphicon-download-alt"></i></a>
  			<a href="/admin/goods/?category_id='.$result[$i]['id'].'" alt="Открыть все товары" title="Открыть все товары"><i class="glyphicon glyphicon-gift"></i></a>
  			';
 			if($result[$i]['is_parent'] == 1) {

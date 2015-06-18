@@ -73,13 +73,6 @@ function openSubPage(id) {
   <tr><td>Показывать в меню:</td><td><input type="checkbox" name="edit_view_menu" value="1"<?php echo $temp_view_menu ?> /></td></tr>
   <tr><td colspan="2"><textarea name="edit_content" style="width:100%;height:500px;"><?php echo $edit_categorys['content'] ?></textarea></td></tr>
   <tr><td colspan="2"><a href="<?php echo $temporary_url; ?>" target="_blank" class="btn btn-warning btn-sm"><i class="glyphicon glyphicon-share-alt"></i> Показать на сайте</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <?php
-  if($edit_categorys['parsing_source']!="") {
-	echo '<a class="btn btn-default" href="/admin/catalogs/?parsing_goods='.$_GET['edit_category'].'"><i class="glyphicon glyphicon-download-alt"></i> Parsing</a>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		';
-  }
-  ?>
   <button class="btn btn-primary btn-sm" onClick="submit();">Сохранить</button></td></tr>
   </form>
   </tbody>
