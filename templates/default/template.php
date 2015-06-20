@@ -32,16 +32,7 @@
   <div id="main_content">
     <div class="left_sidebar">
       <div id="left_menu">
-        <ul>
-          <li><a href="categories.html">beauty</a></li>
-          <li><a href="#">current ranges</a></li>
-          <li><a href="#">classic ranges</a></li>
-          <li><a href="#">accessories</a></li>
-          <li class="selected"><a href="#">swimwear</a></li>
-          <li><a href="#">classic ranges</a></li>
-          <li><a href="#">accessories</a></li>
-          <li><a href="#">swimwear</a></li>
-        </ul>
+        <?php ?>
       </div>
       <div class="submenu_pic"> <img src="<?php echo HOST_TEMPL; ?>images/submenu_pic.gif" alt="" /> </div>
     </div>
