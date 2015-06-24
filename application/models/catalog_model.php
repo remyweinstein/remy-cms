@@ -7,7 +7,6 @@ class Catalog {
 	public function __construct() {
 	
 		$url_page = Engine::$curUrlName;
-		$result = false;
 	
 		$result = dBShop::getContentCatalog($url_page);
 	
@@ -24,10 +23,11 @@ class Catalog {
 	}
 	
 	public static function listCategory($parent=0) {
-		$result = false;
 		$view = '<ul>';
-		if(Engine::$curModule == "catalog") $parent = Engine::$curIdPage;
-		$result = dBShop::getListCategory($parent);
+		if (Engine::$curModule == "catalog") {
+                    $parent = Engine::$curIdPage;
+                }
+                $result = dBShop::getListCategory($parent);
 		for($i=0;$i<count($result);$i++) {
 			$view .= '<li><a href="/catalog/'.$result[$i]['url'].'/">'.$result[$i]['title'].'</a></li>
 					'; 

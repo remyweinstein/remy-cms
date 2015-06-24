@@ -1,4 +1,3 @@
-
 <?php 
 if(Engine::$curUrlName !="index") {
 	echo '<div>
@@ -8,10 +7,9 @@ if(Engine::$curUrlName !="index") {
 	/*
 	echo '<header>
 		<h2>'.$contentPage->title.'</h2>
-			</header>';
+		</header>';
 	*/
 }
-echo '<div '.Engine::$contenteditable.'>
-		'.$contentPage->content.'
-		</div>'; 
-?>
+//echo '<div '.Engine::$contenteditable.'>';
+echo $contentPage->content;
+//echo '</div>';

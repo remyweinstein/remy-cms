@@ -1,15 +1,13 @@
 <?php
 
-class Page {
+class Page_Model {
 	public $content = '';
 	public $title;
 	
 	
 	public function __construct() {
 		
-		$url_page = Engine::$curUrlName;
-		$result = false;
-		
+		$url_page = Engine::$curUrlName;		
 		$result = dB::getContentPage($url_page);
 		
 		if(!$result) {
