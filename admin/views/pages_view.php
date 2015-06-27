@@ -17,7 +17,7 @@ if(!isset($_GET['edit_page']) && !isset($_GET['add_page'])) {
 <a href="/admin/pages/?add_page=0" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-plus-sign"></i> Добавить новую страницу</a>
 </div>
 
-<?php echo $contentPage->printTreePages(0) ?>
+<?php echo $this->printTreePages(0) ?>
 
 </div>
   </div>
@@ -67,11 +67,11 @@ function openSubPage(id) {
   <p>URL: <input type="text" name="edit_url" value="<?php echo $edit_pages['url'] ?>" /></p>
   <p>Родитель: <select name="edit_parent" id="edit_parent">
     <option value="0"> --- </option>
-	<?php echo $contentPage->printParentPages() ?>
+	<?php echo $this->printParentPages() ?>
 	</select>
 	</p>
   <p>Показывать в меню: <input type="checkbox" name="edit_view_menu" value="1"<?php echo $temp_view_menu ?> /></p>
-  <p>Шаблон: <?php echo $contentPage->getNamesTemplates() ?></p>
+  <p>Шаблон: <?php echo $this->getNamesTemplates() ?></p>
   <p>
    <textarea name="edit_content" style="width:100%;height:500px;"><?php echo $edit_pages['content'] ?></textarea>
   </p>
@@ -114,11 +114,11 @@ function openSubPage(id) {
   <p>URL: <input type="text" id="edit_url" name="edit_url" value="<?php echo $edit_pages['url'] ?>" /></p>
   <p>Родитель: <select name="edit_parent" id="edit_parent">
     <option value="0"> --- </option>
-	<?php echo $contentPage->printParentPages() ?>
+	<?php echo $this->printParentPages() ?>
 	</select>
 	</p>
   <p>Показывать в меню: <input type="checkbox" name="edit_view_menu" value="1"<?php echo $temp_view_menu ?> /></p>
-  <p>Шаблон: <?php echo $contentPage->getNamesTemplates() ?></p>
+  <p>Шаблон: <?php echo $this->getNamesTemplates() ?></p>
   <p>
    <textarea name="edit_content" style="width:100%;height:500px;">
        <?php echo $edit_pages['content'] ?>

@@ -15,7 +15,7 @@ if(!isset($_GET['edit_category']) && !isset($_GET['add_category'])) { // Спи�
 <div class="alert alert-info">
 <a href="/admin/catalogs/?add_category=0" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-plus-sign"></i> Добавить новую категорию</a>
 </div>
-<?php echo $contentPage->printTreeCats(0, false) ?>
+<?php echo $this->printTreeCats(0, false) ?>
 </div>
   </div>
   </div>
@@ -67,7 +67,7 @@ function openSubPage(id) {
   <tr><td>URL:</td><td><input type="text" name="edit_url" value="<?php echo $edit_categorys['url'] ?>" size="100" /></td></tr>
   <tr><td>Родитель:</td><td><select name="edit_parent" id="edit_parent">
      <option value="0"> --- </option>
-     <?php echo $contentPage->printParentCats() ?>
+     <?php echo $this->printParentCats() ?>
      </select>
   </td></tr>
   <tr><td>Показывать в меню:</td><td><input type="checkbox" name="edit_view_menu" value="1"<?php echo $temp_view_menu ?> /></td></tr>
@@ -117,7 +117,7 @@ function openSubPage(id) {
   <tr><td>Родитель:</td><td>
   	 <select name="edit_parent" id="edit_parent">
      <option value="0"> --- </option>
-     <?php echo $contentPage->printParentCats() ?>
+     <?php echo $this->printParentCats() ?>
      </select>
   </td></tr>
   <tr><td>Показывать в меню:</td><td><input type="checkbox" name="edit_view_menu" value="1" checked /></td></tr>

@@ -1,5 +1,5 @@
 <?php
-$arr_settings = $contentPage -> arrSettings();
+$arr_settings = $this->arrSettings();
 ?>
 
 <script>
@@ -67,7 +67,7 @@ foreach ($arr_settings['system'] as $value) {
 ?>
 <tr>
 <td style="height:40px;width:250px;"><?php echo $value[0]?>:</td>
-<td style="height:40px;"><?php echo $contentPage->getOptionsTemplates() ?></td>
+<td style="height:40px;"><?php echo $this->getOptionsTemplates() ?></td>
 </tr>
 <?php
         $now_template = $value[2];

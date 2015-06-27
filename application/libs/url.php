@@ -37,6 +37,7 @@ class Url {
 						case "admin":
                                                     Engine::$curAdmin = true;
                                                     Engine::$curController = "dashboard";
+                                                    Engine::$curUrlName = "dashboard";
                                                     Engine::$curTemplate = "admin";
                                                     break;
 						case "login":
@@ -57,6 +58,7 @@ class Url {
 						case "admin":
                                                     Engine::$curAdmin = true;
                                                     Engine::$curController = self::clearSection($catalogies[1]);
+                                                    Engine::$curUrlName = self::clearSection($catalogies[1]);
                                                     Engine::$curTemplate = "admin";
                                                     break;
 						case "login":

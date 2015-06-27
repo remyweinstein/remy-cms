@@ -2,11 +2,11 @@
 
 <div class=" row">
 <div class="col-md-3 col-sm-3 col-xs-6">
-<a data-toggle="tooltip" title="<?php echo $contentPage->new_users ?> новых юзеров" class="well top-block" href="/admin/users/">
+<a data-toggle="tooltip" title="<?php echo $this->new_users ?> новых юзеров" class="well top-block" href="/admin/users/">
 <i class="glyphicon glyphicon-user blue"></i>
 <div>Пользователи</div>
-<div><?php echo $contentPage->all_users ?></div>
-<span class="notification"><?php echo $contentPage->new_users ?></span>
+<div><?php echo $this->all_users ?></div>
+<span class="notification"><?php echo $this->new_users ?></span>
 </a>
 </div>
 <div class="col-md-3 col-sm-3 col-xs-6">
@@ -26,11 +26,11 @@
 </a>
 </div>
 <div class="col-md-3 col-sm-3 col-xs-6">
-<a data-toggle="tooltip" title="<?php echo $contentPage->newmails ?> новых писем" class="well top-block" href="<?php echo $settings['mail_web_address'] ?>" target="_blank">
+<a data-toggle="tooltip" title="<?php echo $this->newmails ?> новых писем" class="well top-block" href="<?php echo $settings['mail_web_address'] ?>" target="_blank">
 <i class="glyphicon glyphicon-envelope red"></i>
 <div>Письма</div>
-<div><?php echo $contentPage->newmails ?></div>
-<span class="notification red"><?php echo $contentPage->newmails ?></span>
+<div><?php echo $this->newmails ?></div>
+<span class="notification red"><?php echo $this->newmails ?></span>
 </a>
 </div>
 </div>

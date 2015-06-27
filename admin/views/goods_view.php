@@ -47,11 +47,11 @@ if(isset($_GET['edit_item'])) {
 	  ?>
 	  
 	  <tr><td>Категория:</td><td><select name="edit_category" id="edit_category">
-	     <?php echo $contentPage->printCats() ?>
+	     <?php echo $this->printCats() ?>
 	     </select>
 	  </td></tr>
 	  <tr><td>Производитель:</td><td><select name="edit_country" id="edit_country">
-	     <?php echo $contentPage->printCountry() ?>
+	     <?php echo $this->printCountry() ?>
 	     </select>
 	  </td></tr>
 	  <tr><td>Показывать в меню:</td><td><input type="checkbox" name="edit_view_menu" value="1"<?php echo $temp_view_menu ?> /></td></tr>
@@ -108,11 +108,11 @@ if(isset($_GET['edit_item'])) {
 	  <tr><td>Изображение:</td><td><input type="file" name="edit_pic_url" /></td></tr>
 	  
 	  <tr><td>Категория:</td><td><select name="edit_category" id="edit_category">
-	     <?php echo $contentPage->printCats() ?>
+	     <?php echo $this->printCats() ?>
 	     </select>
 	  </td></tr>
 	  <tr><td>Производитель:</td><td><select name="edit_country" id="edit_country">
-	     <?php echo $contentPage->printCountry() ?>
+	     <?php echo $this->printCountry() ?>
 	     </select>
 	  </td></tr>
 	  <tr><td>Показывать в меню:</td><td><input type="checkbox" name="edit_view_menu" value="1" checked /></td></tr>
@@ -155,7 +155,7 @@ if(isset($_GET['edit_item'])) {
 
 	$arr_items = dBShop::getAllItems($category);
 	
-	$list_countries = $contentPage->country_title;
+	$list_countries = $this->country_title;
 	
 	
 echo '<div id="content" class="col-lg-10 col-sm-10">

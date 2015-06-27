@@ -120,7 +120,7 @@ dB::checkNewUsers();
 </tr>
 </tbody>
 </table>
-<p style="text-align:center;width=100%;"><button class="btn btn-primary btn-sm" onClick="submit();">Сохранить</button></p>
+<p style="text-align:center;width:100%;"><button class="btn btn-primary btn-sm" onClick="submit();">Сохранить</button></p>
 </form>
 </div>
 </div>
