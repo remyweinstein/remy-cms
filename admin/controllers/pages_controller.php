@@ -34,7 +34,7 @@ class pages_Controller extends Admin {
 				$data['content'] = $_POST['edit_content'];
 				$data['parent'] = $_POST['edit_parent'];
 				$data['template'] = $_POST['edit_template'];
-                                if($data['url']=="") $data['url'] = Engine::Translit($data['title']);
+                                if($data['url']=="") $data['url'] = Format::Translit($data['title']);
                                 
 				$parent = dB::findParentPage($id);
 				
@@ -51,7 +51,7 @@ class pages_Controller extends Admin {
 				$data['content'] = $_POST['edit_content'];
 				$data['parent'] = $_POST['edit_parent'];
 				$data['template'] = $_POST['edit_template'];
-                                if($data['url']=="") $data['url'] = Engine::Translit($data['title']);
+                                if($data['url']=="") $data['url'] = Format::Translit($data['title']);
 					
 				dB::newPage($data);
 				if($_POST['edit_parent']>0) dB::checkIsParentPage($_POST['edit_parent']);

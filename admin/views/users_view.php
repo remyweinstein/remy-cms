@@ -51,8 +51,8 @@ for($i=0;$i<count($admin_users);$i++) {
 <td><?php echo $admin_users[$i]['login'].$admin_new_user ?></td>
 <td><?php echo $admin_users[$i]['name'] ?></td>
 <td><?php echo $admin_users[$i]['email'] ?></td>
-<td class="center"><?php echo Engine::Viewdate($admin_users[$i]['date_reg']) ?></td>
-<td class="center"><?php echo Engine::Viewdate($admin_users[$i]['date_last']) ?></td>
+<td class="center"><?php echo Format::Viewdate($admin_users[$i]['date_reg']) ?></td>
+<td class="center"><?php echo Format::Viewdate($admin_users[$i]['date_last']) ?></td>
 <td class="center"><?php echo $admin_users[$i]['level'] ?></td>
 <td class="center">
 <span class="label-success label label-default"><?php echo $admin_users[$i]['status'] ?></span>
@@ -107,10 +107,10 @@ dB::checkNewUsers();
 <td>Email:</td><td><input type="text" name="edit_email" value="<?php echo $admin_user['email'] ?>" /></td>
 </tr>
 <tr>
-<td>Регистрация:</td><td><?php echo Engine::Viewdate($admin_user['date_reg']) ?></td>
+<td>Регистрация:</td><td><?php echo Format::Viewdate($admin_user['date_reg']) ?></td>
 </tr>
 <tr>
-<td>Посл. вход:</td><td><?php echo Engine::Viewdate($admin_user['date_last']) ?></td>
+<td>Посл. вход:</td><td><?php echo Format::Viewdate($admin_user['date_last']) ?></td>
 </tr>
 <tr>
 <td>Уровень:</td><td><input type="text" name="edit_level" value="<?php echo $admin_user['level'] ?>" /></td>

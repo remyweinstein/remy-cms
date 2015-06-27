@@ -22,7 +22,7 @@ class catalogs_Controller extends Admin {
 			$data['content'] = $_POST['edit_content'];
 			$data['parent'] = $_POST['edit_parent'];
 			$data['id'] = $_GET['edit_category'];                        
-                        if($data['url']=="") $data['url'] = Engine::Translit($data['title']);
+                        if($data['url']=="") $data['url'] = Format::Translit($data['title']);
 				
 			if(isset($_GET['edit_category']) && $_GET['edit_category'] > 0) { // Редактируем категорию
 				$edit_categorys = dBShop::findParentCat($_GET['edit_category']);
