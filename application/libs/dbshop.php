@@ -3,7 +3,7 @@
 class dBShop extends dB {
 
 	public function __construct() {
-		//parent::init();
+            parent::__construct();
 	}
 
 	

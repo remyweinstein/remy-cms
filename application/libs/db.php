@@ -1,8 +1,7 @@
 <?php
 
 class dB {
-	
-	protected static $host   = HOST;
+    protected static $host   = HOST;
     protected static $dbname = NAME_BD;
     protected static $user   = USER;
     protected static $pass   = PASSWORD;
@@ -409,7 +408,7 @@ class dB {
     			':login'  => $data['login'],
     			':password'  => User::generateHash(trim($data['password'])),
     			':name'  => $data['name'],
-    			':role'  => 0,
+    			':role'  => 1,
     			':date_reg'  => date("Y-m-d"),
     			':date_last'  => date("Y-m-d H:i:s"),
     			':status'  => 0,

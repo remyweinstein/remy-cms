@@ -1,28 +1,56 @@
 <?php
 class Engine {
-	static public $curTemplate;
-	static public $curAdmin;
-	static public $curModule;
-	static public $curUrlName;
-	static public $curIdPage;
-	static public $contenteditable;
-	static public $settings;
-	
-	public function __construct() {
+    static public $curTemplate;
+    static public $curAdmin;
+    static public $curController;
+    static public $curUrlName;
+    static public $curIdPage;
+    static public $contenteditable;
+    static public $settings;
 
-	}
+    public function __construct() {
+    }
 	
-	public static function init() {
-		self::$curAdmin = false;
-		foreach(dB::getAllSettings() as $key => $value) {
-			self::$settings[$value['name']] = $value['value'];
-		}
-		self::$contenteditable = '';
-		self::$curTemplate = self::$settings['default_template'];
-		
+    public static function init() {
+        self::$curAdmin = false;
+        foreach(dB::getAllSettings() as $key => $value) {
+            self::$settings[$value['name']] = $value['value'];
+        }
+        self::$contenteditable = '';
+        self::$curTemplate = self::$settings['default_template'];
 	}
-	
-	public static function getConfigIni() {
+        
+    public static function run() {
+        $Module = new self::$curController;
+        self::changeTitle($Module->title);
+        
+        if(self::$curTemplate == "none") {
+            echo $Module->content;
+        } else {
+            require_once (TEMPLATES.self::$curTemplate.'/template.php');
+        }
+    }
+    
+    private function changeTitle($title) {
+        self::$settings['var_meta_title'] = $title=="" ? self::$settings['var_meta_title'] : $title.' - '.self::$settings['var_meta_title'];
+    }
+        
+    public static function getLayout($layout, $data=null) {
+        if(file_exists(TEMPLATES.self::$curTemplate.'/'.$layout.'_layout.php')) { 
+            $path = TEMPLATES.self::$curTemplate.'/';
+        } elseif(file_exists(APP_VIEWS.$layout.'_layout.php')) {
+            $path = APP_VIEWS;
+        }
+        if($path) {
+            ob_start();
+            include $path.$layout.'_layout.php';
+            $content = ob_get_contents();
+            ob_end_clean();
+        }
+        return $content;
+    }
+
+        public static function getConfigIni() {
 		if (file_exists('config.ini.php')) {
 			$config = parse_ini_file('config.ini.php', true);
 			define('HOST', $config['DB']['HOST']);
@@ -38,7 +66,7 @@ class Engine {
 	}
 	
 	public static function BreadCrumbs($page,$title) {
-		$content = ($title != "") ? $title : '';
+            if($page != "index") {
 		$parent = dB::getParentByUrl($page);
 		if($parent) {
 			$content = '<a href="'.self::$settings['main_host'].$parent['url'].'/">'.$parent['title'].'</a> > '.$content;
@@ -48,7 +76,11 @@ class Engine {
 			}
 		}
 		$content = ($title != "") ? '<a href="/">Главная</a> > '.$content : $content;
-		return $content;
+            } else {
+                $content = "";
+            }
+            
+            return $content;
 	}
 	
 	public static function DirectLink($link) {
@@ -68,7 +100,7 @@ class Engine {
 		return $newdate;
 	}
 
-	public static function PaginatorView($active_page, $count_item, $display_of, $link, $paginator) {
+    public static function PaginatorView($active_page, $count_item, $display_of, $link, $paginator) {
     	$count_page = round($count_item/$display_of) + 1;
     	$content = '<div style="width:100%;text-align:center;"><ul class="pagination">';
     	$content .= ($active_page<=1) ? '<li class="prev disabled"><a href="#"> ← Previous</a></li>' : '<li><a href="'.$link.'&'.$paginator.'='.($active_page-1).'"> ← Previous</a></li>';    	

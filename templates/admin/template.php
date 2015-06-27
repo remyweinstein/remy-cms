@@ -3,28 +3,28 @@
 <head>
  
 <meta charset="utf-8">
-<title>Админ Панель <?php echo Engine::$settings['main_name']; ?></title>
+<title>Админ Панель <?php echo Engine::$settings['main_name'] ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
  
-<link id="bs-css" href="<?php echo HOST_TEMPL; ?>css/bootstrap-cerulean.min.css" rel="stylesheet">
-<link href="<?php echo HOST_TEMPL; ?>css/charisma-app.css" rel="stylesheet">
+<link id="bs-css" href="<?php echo HOST_TEMPL ?>css/bootstrap-cerulean.min.css" rel="stylesheet">
+<link href="<?php echo HOST_TEMPL ?>css/charisma-app.css" rel="stylesheet">
 
 
-<link href="<?php echo HOST_TEMPL; ?>css/chosen.min.css" rel="stylesheet">
-<link href="<?php echo HOST_TEMPL; ?>css/colorbox.css" rel="stylesheet">
+<link href="<?php echo HOST_TEMPL ?>css/chosen.min.css" rel="stylesheet">
+<link href="<?php echo HOST_TEMPL ?>css/colorbox.css" rel="stylesheet">
 
 
-<link href="<?php echo HOST_TEMPL; ?>css/jquery.noty.css" rel="stylesheet">
-<link href="<?php echo HOST_TEMPL; ?>css/noty_theme_default.css" rel="stylesheet">
-<link href="<?php echo HOST_TEMPL; ?>css/elfinder.min.css" rel="stylesheet">
-<link href="<?php echo HOST_TEMPL; ?>css/elfinder.theme.css" rel="stylesheet">
-<link href="<?php echo HOST_TEMPL; ?>css/jquery.iphone.toggle.css" rel="stylesheet">
-<link href="<?php echo HOST_TEMPL; ?>css/uploadify.css" rel="stylesheet">
-<link href="<?php echo HOST_TEMPL; ?>css/animate.min.css" rel="stylesheet">
-<link href="<?php echo HOST_TEMPL; ?>css/bootstrap-wysiwyg.css" rel="stylesheet">
+<link href="<?php echo HOST_TEMPL ?>css/jquery.noty.css" rel="stylesheet">
+<link href="<?php echo HOST_TEMPL ?>css/noty_theme_default.css" rel="stylesheet">
+<link href="<?php echo HOST_TEMPL ?>css/elfinder.min.css" rel="stylesheet">
+<link href="<?php echo HOST_TEMPL ?>css/elfinder.theme.css" rel="stylesheet">
+<link href="<?php echo HOST_TEMPL ?>css/jquery.iphone.toggle.css" rel="stylesheet">
+<link href="<?php echo HOST_TEMPL ?>css/uploadify.css" rel="stylesheet">
+<link href="<?php echo HOST_TEMPL ?>css/animate.min.css" rel="stylesheet">
+<link href="<?php echo HOST_TEMPL ?>css/bootstrap-wysiwyg.css" rel="stylesheet">
 
-<script src="<?php echo HOST_TEMPL; ?>js/jquery.min.js"></script>
-<script src="<?php echo HOST_TEMPL; ?>js/bootstrap-wysiwyg.js"></script>
+<script src="<?php echo HOST_TEMPL ?>js/jquery.min.js"></script>
+<script src="<?php echo HOST_TEMPL ?>js/bootstrap-wysiwyg.js"></script>
 
  
 <!--[if lt IE 9]>
@@ -42,22 +42,22 @@
 <span class="icon-bar"></span>
 <span class="icon-bar"></span>
 </button>
-<a class="navbar-brand" href="/"> <span><?php echo Engine::$settings['main_name']; ?></span></a>
-<?php $temp_name = ($user->Name == "") ? $user->Login : $user->Name; ?>
+<a class="navbar-brand" href="/"> <span><?php echo Engine::$settings['main_name'] ?></span></a>
+<?php $temp_name = ($user->Name == "") ? $user->Login : $user->Name ?>
 <div class="btn-group pull-right">
 <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-<i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs"> <?php echo $temp_name; ?></span>
+<i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs"> <?php echo $temp_name ?></span>
 <span class="caret"></span>
 </button>
 <ul class="dropdown-menu">
-<li><a href="/admin/users/?id_user=<?php echo $user->Id; ?>">Редактировать</a></li>
+<li><a href="/admin/users/?id_user=<?php echo $user->Id ?>">Редактировать</a></li>
 <li class="divider"></li>
 <li><a href="/logout/?logout=yes">Выйти</a></li>
 </ul>
 </div>
  
 <ul class="collapse navbar-collapse nav navbar-nav top-menu">
-<li><a href="<?php echo Engine::$settings['main_host']; ?>" target="_blank"><i class="glyphicon glyphicon-globe"></i> На сайт</a></li>
+<li><a href="<?php echo Engine::$settings['main_host'] ?>" target="_blank"><i class="glyphicon glyphicon-globe"></i> На сайт</a></li>
 <li class="dropdown">
 <a href="#" data-toggle="dropdown"><i class="glyphicon glyphicon-star"></i> Избранное <span class="caret"></span></a>
 <ul class="dropdown-menu" role="menu">
@@ -118,12 +118,12 @@ enabled to use this site.</p>
 </div>
 </noscript>
 
-<?php include ADMIN_VIEWS.Engine::$curModule.".php"; ?>
+<?php echo $Module->content ?>
 
 <hr>
 </div>
 <footer class="row">
-<p class="col-md-9 col-sm-9 col-xs-12 copyright">&copy; <a href="<?php echo Engine::$settings['main_host']; ?>" target="_blank"><?php echo Engine::$settings['main_name']; ?></a> <?php echo date("Y"); ?></p>
+<p class="col-md-9 col-sm-9 col-xs-12 copyright">&copy; <a href="<?php echo Engine::$settings['main_host'] ?>" target="_blank"><?php echo Engine::$settings['main_name'] ?></a> <?php echo date("Y") ?></p>
 <p class="col-md-3 col-sm-3 col-xs-12 powered-by">Разработано <a href="http://remy-weinstein.ru/">Remy Weinstein</a></p>
 </footer>
 </div> 

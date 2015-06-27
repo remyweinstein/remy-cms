@@ -7,7 +7,7 @@ class User {
 	public $Status = false;
 	public $Email = false;
 	public $Picture = false;
-	public static $globalRole = 0;
+	public static $globalRole = null;
 
 	public function __construct() {
 
@@ -27,7 +27,6 @@ class User {
 				self::$globalRole = $result['role'];
 			}
 		}
-		
 	}
 
 	public static function generateHash($password) {
@@ -42,7 +41,9 @@ class User {
 		$result = '<a href="/login/">Вход</a>';
 		if($this->Role) {
 			$result = '<a href="/logout/?logout=yes">Выход</a>';
-			if($this->Role > 1) $result = '<a href="/admin/">Админ Панель</a> | '.$result;
+			if($this->Role > 1) {
+                            $result = '<a href="/admin/">Админ Панель</a> | '.$result;
+                        }
 		}
 		
 		return $result;

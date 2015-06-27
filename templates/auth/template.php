@@ -10,9 +10,7 @@
     </head>
     <body>
     <div class="login_panel">
-    
-    <?php include CORE_VIEWS.Engine::$curModule.".php" ?>
-    
+    <?php echo $Module->content; ?>
     </div>
 	</body>
 </html>

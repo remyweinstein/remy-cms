@@ -32,12 +32,12 @@
   <div id="main_content">
     <div class="left_sidebar">
       <div id="left_menu">
-        <?php ?>
+        <?php echo $Module->leftmenu; ?>
       </div>
       <div class="submenu_pic"> <img src="<?php echo HOST_TEMPL; ?>images/submenu_pic.gif" alt="" /> </div>
     </div>
     <div id="center_content">
-	<?php include CORE_VIEWS.Engine::$curModule.".php"; ?>
+	<?php echo $Module->content; ?>
     </div>
     <div class="clear"></div>
     <div id="footer">

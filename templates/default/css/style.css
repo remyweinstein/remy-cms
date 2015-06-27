@@ -116,7 +116,7 @@ display:block;}
 #left_menu li a {
 display:block;  padding:0 0 0 25px; height:30px;text-align:left; line-height:30px;
 text-decoration:none; background-color:#d4847f; color:#FFFFFF;border-bottom:1px #da9591 solid;}
-#left_menu li.selected a {
+#left_menu li.active a {
 display:block;  padding:0 0 0 25px; height:30px;text-align:left; line-height:30px;
 text-decoration:none;background:url(../images/left_menu_bullet.gif) no-repeat left #b0335d; color:#FFFFFF;border-bottom:1px #da9591 solid; background-position:5px 8px;
 }
