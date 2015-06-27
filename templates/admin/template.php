@@ -92,10 +92,6 @@
 </li>
 <li><a class="ajax-link" href="/admin/goods/"><i class="glyphicon glyphicon-gift"></i><span> Товары</span></a>
 </li>
-<li><a class="ajax-link" href="/admin/orders/"><i class="glyphicon glyphicon-shopping-cart"></i><span> Заказы</span></a>
-</li>
-<li><a class="ajax-link" href="/admin/modules/"><i class="glyphicon glyphicon-inbox"></i><span> Модули</span></a>
-</li>
 <li><a class="ajax-link" href="/admin/users/"><i class="glyphicon glyphicon-user"></i><span> Пользователи</span></a>
 </li>
 <li><a class="ajax-link" href="/admin/settings/"><i class="glyphicon glyphicon-cog"></i><span> Настройки</span></a>
