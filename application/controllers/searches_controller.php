@@ -1,5 +1,5 @@
 <?php
-class searches_Controller extends Admin {
+class searches_Controller extends Base_Controller {
 	
 	public function __construct() {
             parent::__construct();

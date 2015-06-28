@@ -1,5 +1,5 @@
 <?php
-class goods_Controller extends Admin {
+class goods_Controller extends Base_Controller {
 	
 	public $country_title;
 	

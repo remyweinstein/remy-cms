@@ -7,10 +7,29 @@ class Base_Controller {
     public $breadcrumbs = "";
 
     function __construct() {
-        $this->leftmenu = Engine::getLayout('leftmenu', Base_Model::getMenuCatalog());
+        if(Engine::$curAdmin) {
+            if(User::$globalRole < 2) {
+                Engine::DirectLink("/login/");
+            } else {
+                Engine::$curTemplate = "admin";
+            }
+        } else {
+            $this->leftmenu = Engine::getLayout('leftmenu', Base_Model::getMenuCatalog());
+        }
     }
 
-
+    public function getView($views) {
+        if(Engine::$curAdmin){
+            $path=ADMIN_VIEWS;
+        } else {
+            $path=APP_VIEWS;
+        }
+        ob_start();
+        include $path.$views.'_view.php';
+        $this->content = ob_get_contents();
+        ob_end_clean();
+        Engine::$curIdPage = "";       
+    }
 
     
 }

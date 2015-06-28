@@ -62,14 +62,6 @@ class auth_Controller extends Base_Controller {
             }
         }
     }
-        
-    private function getView($views) {
-        ob_start();
-        include APP_VIEWS.$views.'_view.php';
-        $this->content = ob_get_contents();
-        ob_end_clean();
-        Engine::$curIdPage = "";
-        Engine::$curTemplate = "auth";        
-    }        
+ 
 
 }

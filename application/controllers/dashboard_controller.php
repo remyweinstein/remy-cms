@@ -1,5 +1,5 @@
 <?php
-class dashboard_Controller extends Admin {
+class dashboard_Controller extends Base_Controller {
 	public $all_users = 0;
 	public $new_users = 0;
 	public $newmails = 0;
