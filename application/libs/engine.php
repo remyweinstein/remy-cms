@@ -24,7 +24,6 @@ class Engine {
         $user = new User;
         $Module = new self::$curController;
         self::changeTitle($Module->title);
-        
         if(self::$curTemplate == "none") {
             echo $Module->content;
         } else {
