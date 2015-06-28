@@ -21,6 +21,7 @@ class Engine {
 	}
         
     public static function run() {
+        $user = new User;
         $Module = new self::$curController;
         self::changeTitle($Module->title);
         
@@ -96,7 +97,7 @@ class Engine {
     	$content = '<div style="width:100%;text-align:center;"><ul class="pagination">';
     	$content .= ($active_page<=1) ? '<li class="prev disabled"><a href="#"> ← Previous</a></li>' : '<li><a href="'.$link.'&'.$paginator.'='.($active_page-1).'"> ← Previous</a></li>';    	
     	for($i=0;$i<$count_page;$i++) {
-    		$content .= ($active_page == ($i+1)) ? '<li class="active"><a href="#">'.($i+1).'</a></li>' : '<li><a href="'.$link.'&'.$paginator.'='.($i+1).'">'.($i+1).'</a></li>';
+            $content .= ($active_page == ($i+1)) ? '<li class="active"><a href="#">'.($i+1).'</a></li>' : '<li><a href="'.$link.'&'.$paginator.'='.($i+1).'">'.($i+1).'</a></li>';
     	}            	
     	$content .= ($active_page>=$count_page) ? '<li class="next disabled"><a href="#">Next → </a></li>' : '<li><a href="'.$link.'&'.$paginator.'='.($active_page+1).'">Next → </a></li>';
     	$content .= '</ul></div>';
@@ -105,10 +106,10 @@ class Engine {
     }
 
     public static function UploadFile($file) {
-		$result = '';
-		$file_name = mt_rand(111111, 999999).'_'.$file["name"];
+	$result = '';
+	$file_name = mt_rand(111111, 999999).'_'.$file["name"];
        	if(is_uploaded_file($file["tmp_name"])) {
-    		$result = (move_uploaded_file($file["tmp_name"], $_SERVER[DOCUMENT_ROOT].'/'.Engine::$settings['directory_pictures'].'/'.$file_name)) ? $file_name : '';
+            $result = (move_uploaded_file($file["tmp_name"], $_SERVER[DOCUMENT_ROOT].'/'.Engine::$settings['directory_pictures'].'/'.$file_name)) ? $file_name : '';
     	}
 
     	return $result;
