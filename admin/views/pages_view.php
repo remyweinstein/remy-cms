@@ -135,7 +135,7 @@ function openSubPage(id) {
     $("#edit_parent [value=\'<?php echo $_GET['add_page'] ?>\']").attr("selected", "selected");
     $("#edit_template [value=\'<?php echo Engine::$settings['current_template'] ?>\']").attr("selected", "selected");
   
- function translit(){
+function translit(){
 // Символ, на который будут заменяться все спецсимволы
 var space = '-'; 
 // Берем значение из нужного поля и переводим в нижний регистр

@@ -217,7 +217,7 @@ class dBShop extends dB {
     public static function updateItem($data) {
     	$result = false;
     	if($data) {
-            $query = self::$database->prepare("UPDATE ".PREFIX."catalog_items SET url=:url, category=:category, title=:title, content=:content, pic_url=:pic_url, price=:price, price_zakup=:price_zakup, quantity=:quantity, weight=:weight, lenght=:lenght, prop=:prop, active=:active, country=:country WHERE id=:id");
+            $query = self::$database->prepare("UPDATE ".PREFIX."catalog_items SET url=:url, category=:category, title=:title, content=:content, pic_url=:pic_url, active=:active, country=:country, new=:new, favorite=:favorite WHERE id=:id");
             $result = $query->execute(array(
                                 ':id'  => $data['id'],
     				':url'  => $data['url'],
@@ -225,14 +225,10 @@ class dBShop extends dB {
     				':title'  => $data['title'],
     				':content'  => $data['content'],
     				':pic_url'  => $data['pic_url'],
-    				':price'  => $data['price'],
-    				':price_zakup'  => $data['price_zakup'],
-    				':quantity'  => $data['quantity'],
-    				':weight'  => $data['weight'],
-    				':lenght'  => $data['lenght'],
-    				':prop'  => $data['prop'],
     				':active'  => $data['active'],
-    				':country'  => $data['country']
+    				':country'  => $data['country'],
+    				':new'  => $data['new'],
+    				':favorite'  => $data['fav']
     				 ));
     	}
     	return $result;
@@ -241,7 +237,7 @@ class dBShop extends dB {
     public static function newItem($data) {
     	$result = false;
     	if($data) {
-            $query = self::$database->prepare("INSERT ".PREFIX."catalog_items (id, url, category, title, content, pic_url, price, price_zakup, quantity, weight, lenght, prop, active, country) VALUES (:id, :url, :category, :title, :content, :pic_url, :price, :price_zakup, :quantity, :weight, :lenght, :prop, :active, :country)");
+            $query = self::$database->prepare("INSERT ".PREFIX."catalog_items (id, url, category, title, content, pic_url, active, country, new, favorite) VALUES (:id, :url, :category, :title, :content, :pic_url, :active, :country, :new, :favorite)");
             $result = $query->execute(array(
     				':id'  => '',
     				':url'  => $data['url'],
@@ -249,16 +245,13 @@ class dBShop extends dB {
     				':title'  => $data['title'],
     				':content'  => $data['content'],
     				':pic_url'  => $data['pic_url'],
-    				':price'  => $data['price'],
-    				':price_zakup'  => $data['price_zakup'],
-    				':quantity'  => $data['quantity'],
-    				':weight'  => $data['weight'],
-    				':lenght'  => $data['lenght'],
-    				':prop'  => $data['prop'],
     				':active'  => $data['active'],
-    				':country'  => $data['country']
+    				':country'  => $data['country'],
+    				':new'  => $data['new'],
+    				':favorite'  => $data['favorite']
                                 ));
     	}
+        $result = self::$database->lastInsertId();
     	return $result;
     }
     
@@ -286,6 +279,100 @@ class dBShop extends dB {
     }
     
 
+
+    // *****************************
+    //       Таблица Variants
+    // *****************************
+    
+    public static function getVariantsByItem($item) {
+    	$result = false;
+    	if($item) {
+            $query = self::$database->prepare("SELECT * FROM ".PREFIX."catalog_item_variants WHERE id_item = :id_item");
+            $query->execute(array('id_item' => $item));
+            $result = $query->fetchAll();
+    	}
+    	return $result;
+    }
+
+    public static function updateVariant($data) {
+    	$result = false;
+    	if($data) {
+            for($i=0;$i<count($data['price']);$i++) {
+            $query = self::$database->prepare("UPDATE ".PREFIX."catalog_item_variants SET sku=:sku, id_item=:id_item, name=:name, price=:price, old_price=:old_price, weight=:weight, quantity=:quantity, pic_url=:pic_url WHERE id=:id");
+            $result = $query->execute(array(
+                                ':id'  => $data['id'][$i],
+                                ':sku'  => $data['sku'][$i],
+    				':id_item'  => $data['id_item'][$i],
+    				':name'  => $data['name'][$i],
+    				':price'  => $data['price'][$i],
+    				':old_price'  => $data['old_price'][$i],
+    				':weight'  => $data['weight'][$i],
+    				':quantity'  => $data['quantity'][$i],
+    				':pic_url'  => $data['pic_url'][$i]
+    				 ));
+            }
+    	}
+    	return $result;
+    }
+    
+    public static function newVariant($data, $id_item) {
+    	$result = false;
+    	if($data) {
+            for($i=0;$i<count($data['price']);$i++) {
+            $query = self::$database->prepare("INSERT ".PREFIX."catalog_item_variants (id, sku, id_item, name, price, old_price, weight, quantity, pic_url) VALUES (:id, :sku, :id_item, :name, :price, :old_price, :weight, :quantity, :pic_url)");
+            $result = $query->execute(array(
+    				':id'  => '',
+                                ':sku'  => $data['sku'][$i],
+    				':id_item'  => $id_item,
+    				':name'  => $data['name'][$i],
+    				':price'  => $data['price'][$i],
+    				':old_price'  => $data['old_price'][$i],
+    				':weight'  => $data['weight'][$i],
+    				':quantity'  => $data['quantity'][$i],
+    				':pic_url'  => $data['pic_url'][$i]
+                                ));
+            }
+    	}
+    	return $result;
+    }
+    
+    public static function deleteVariantByItem($id) {
+    	$result = false;
+    	if($id) {
+            $query = self::$database->prepare("DELETE FROM ".PREFIX."catalog_item_variants WHERE id_item=:id");
+            $result = $query->execute(array(
+    				':id'  => $id
+                                ));
+    	}
+    	return $result;
+    }
+
+    public static function deleteVariant($id) {
+    	$result = false;
+    	if($id) {
+            $query = self::$database->prepare("DELETE FROM ".PREFIX."catalog_item_variants WHERE id=:id");
+            $result = $query->execute(array(
+    				':id'  => $id
+                                ));
+    	}
+    	return $result;
+
+    }
+    
+    public static function deletePicVariant($id) {
+    	$result = false;
+    	$query = self::$database->prepare("UPDATE ".PREFIX."catalog_item_variants SET pic_url='' WHERE id=:id");
+    	$result = $query->execute(array(
+                                ':id'  => $id ));
+    	if($result) {
+            $edit_item = self::getItemById($id);
+            unlink(Engine::$settings['main_host'].Engine::$settings['directory_pictures'].'/'.$edit_item['pic_url']);
+    	}
+    	return $result;
+    }
+    
+
+    
 
     // *****************************
     //       Таблица Country

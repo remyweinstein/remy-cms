@@ -19,29 +19,54 @@ class goods_Controller extends Base_Controller {
 			} else {
 				$data['pic_url'] = $_POST['edit_pic_url'];
 			}
-			$data['active'] = (isset($_POST['edit_view_menu']) && $_POST['edit_view_menu'] == 1) ? 1 : 0;
-			$data['title'] = $_POST['edit_title'];
-			$data['url'] = $_POST['edit_url'];
-			$data['content'] = $_POST['edit_content'];
-			$data['category'] = $_POST['edit_category'];
 			$data['id'] = $_POST['edit_item'];
-			$data['price'] = $_POST['edit_price'];
-			$data['price_zakup'] = $_POST['edit_price_zakup'];
-			$data['quantity'] = $_POST['edit_quantity'];
-			$data['weight'] = $_POST['edit_weight'];
-			$data['lenght'] = $_POST['edit_lenght'];
-			$data['prop'] = $_POST['edit_prop'];
+			$data['url'] = $_POST['edit_url'];
+			$data['category'] = $_POST['edit_category'];
+			$data['title'] = $_POST['edit_title'];
+			$data['content'] = $_POST['edit_content'];
 			$data['country'] = $_POST['edit_country'];
-			if($_POST['edit_item'] > 0) { // Редактируем категорию
-				dBShop::updateItem($data);
-			} else { // Создаем новую категорию
-				dBShop::newItem($data);
+			$data['active'] = (isset($_POST['edit_view_menu']) && $_POST['edit_view_menu'] == 1) ? 1 : 0;
+			$data['new'] = (isset($_POST['edit_new']) && $_POST['edit_new'] == 1) ? 1 : 0;
+			$data['favorite'] = (isset($_POST['edit_favorite']) && $_POST['edit_favorite'] == 1) ? 1 : 0;
+                        
+                        $variants['sku'] = $_POST['variants_sku'];
+                        $variants['name'] = $_POST['variants_name'];
+                        $variants['price'] = $_POST['variants_price'];
+                        $variants['old_price'] = $_POST['variants_price_old'];
+                        $variants['weight'] = $_POST['variants_weight'];
+                        $variants['quantity'] = $_POST['variants_quantity'];
+                        $variants['pic_url'] = $_POST['variants_pic_url'];
+
+                        $edit_variants['id'] = $_POST['edit_variants_id'];
+                        $edit_variants['id_item'] = $_POST['edit_variants_id_item'];
+                        $edit_variants['sku'] = $_POST['edit_variants_sku'];
+                        $edit_variants['name'] = $_POST['edit_variants_name'];
+                        $edit_variants['price'] = $_POST['edit_variants_price'];
+                        $edit_variants['old_price'] = $_POST['edit_variants_price_old'];
+                        $edit_variants['weight'] = $_POST['edit_variants_weight'];
+                        $edit_variants['quantity'] = $_POST['edit_variants_quantity'];
+                        $edit_variants['pic_url'] = $_POST['edit_variants_pic_url'];
+                        
+			if($_POST['edit_item'] > 0) {         // Редактируем категорию
+                            dBShop::updateItem($data);
+                            dBShop::updateVariant($edit_variants);
+                            if($variants['price'][0]!="") {
+                                dBShop::newVariant($variants, $_POST['edit_item']);
+                            }
+			} else {                              // Создаем новую категорию
+                            $id_item = dBShop::newItem($data);
+                            dBShop::newVariant($variants, $id_item);
 			}
 		}
 		
 		if(isset($_GET['delete_item'])) {
 			$delete = intval($_GET['delete_item']);
 			dBShop::deleteItem($delete);
+		}
+
+		if(isset($_GET['delete_variant'])) {
+			$delete = intval($_GET['delete_variant']);
+			dBShop::deleteVariant($delete);
 		}
 
 		$this->getView(Engine::$curUrlName);

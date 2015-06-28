@@ -7,8 +7,21 @@ if(isset($_GET['edit_item'])) {
 		// Вывод формы
 		$edit_items = dBShop::getItemById($_GET['edit_item']);
 		 
-		if($edit_items['active'] == 1) $temp_view_menu = ' checked';
-		else $temp_view_menu = '';
+		if($edit_items['active'] == 1) {
+                    $temp_view_menu = ' checked';
+                } else {
+                    $temp_view_menu = '';
+                }
+		if($edit_items['new'] == 1) {
+                    $temp_new = ' checked';
+                } else {
+                    $temp_new = '';
+                }
+		if($edit_items['favorite'] == 1) {
+                    $temp_favorite = ' checked';
+                } else {
+                    $temp_favorite = '';
+                }
 		if($edit_items['id'] == 1) $temporary_url = Engine::$settings['main_host'];
 		else $temporary_url = Engine::$settings['main_host'].'item/'.$edit_items['url'].'/';
 		?>
@@ -55,16 +68,30 @@ if(isset($_GET['edit_item'])) {
 	     </select>
 	  </td></tr>
 	  <tr><td>Показывать в меню:</td><td><input type="checkbox" name="edit_view_menu" value="1"<?php echo $temp_view_menu ?> /></td></tr>
-	  <tr><td>Цена:</td><td><input type="text" name="edit_price" value="<?php echo $edit_items['price'] ?>" /></td></tr>
-	  <tr><td>Цена закуп:</td><td><input type="text" name="edit_price_zakup" value="<?php echo $edit_items['price_zakup'] ?>" /></td></tr>
-	  
-	  <input type="hidden" name="edit_prop" value="<?php echo $edit_items['prop'] ?>" />
+	  <tr><td colspan="2">
+                  Показывать товар:&nbsp;<input type="checkbox" name="edit_view_menu" value="1"<?php echo $temp_view_menu ?> />&nbsp;&nbsp;&nbsp;&nbsp;
+                  Показывать в Новинках:&nbsp;<input type="checkbox" name="edit_new" value="1"<?php echo $temp_new ?> />&nbsp;&nbsp;&nbsp;&nbsp;
+                  Показывать в Рекомендуемых:&nbsp;<input type="checkbox" name="edit_favorite" value="1"<?php echo $temp_favorite ?> />
+          </td></tr>
 	  <input type="hidden" name="edit_item" value="<?php echo $_GET['edit_item'] ?>" />
-	  
-	  <tr><td>Количество:</td><td><input type="text" name="edit_quantity" value="<?php echo $edit_items['quantity'] ?>" /></td></tr>
-	  <tr><td>Вес:</td><td><input type="text" name="edit_weight" value="<?php echo $edit_items['weight'] ?>" /></td></tr>
-	  <tr><td>Длина:</td><td><input type="text" name="edit_lenght" value="<?php echo $edit_items['lenght'] ?>" /></td></tr>
-
+<?php
+$edit_variants = dBShop::getVariantsByItem($_GET['edit_item']);
+for($i=0;$i<count($edit_variants);$i++) {
+echo '	  <tr class="variants"><td colspan="2">
+                Название:&nbsp;<input type="text" name="edit_variants_name[]" value="'.$edit_variants[$i]['name'].'" />&nbsp;
+                Артикул:&nbsp;<input type="text" name="edit_variants_sku[]" value="'.$edit_variants[$i]['sku'].'" style="width:150px;" />&nbsp;
+                Цена:&nbsp;<input type="text" name="edit_variants_price[]" value="'.$edit_variants[$i]['price'].'" style="width:60px;" />&nbsp;
+                Старая цена:&nbsp;<input type="text" name="edit_variants_price_old[]" style="width:60px;" value="'.$edit_variants[$i]['old_price'].'" />&nbsp;
+                Вес:&nbsp;<input type="text" name="edit_variants_weight[]" value="'.$edit_variants[$i]['weight'].'" style="width:50px;" />&nbsp;
+                Количество:&nbsp;<input type="text" name="edit_variants_quantity[]" value="'.$edit_variants[$i]['quantity'].'" style="width:50px;" />&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="#" onClick="addVariant(); return false;"><i class="glyphicon glyphicon-plus"></i>&nbsp;Добавить</a>
+                <input type="hidden" name="edit_variants_pic_url[]" value= "'.$edit_variants[$i]['pic_url'].'" />
+                <input type="hidden" name="edit_variants_id[]" value= "'.$edit_variants[$i]['id'].'" />
+                <input type="hidden" name="edit_variants_id_item[]" value= "'.$edit_variants[$i]['id_item'].'" />
+          </td></tr>
+';
+}
+?>
 	  <tr><td colspan="2"><textarea name="edit_content" style="width:100%;height:500px;"><?php echo $edit_items['content'] ?></textarea></td></tr>
 	  <tr><td colspan="2"><a href="<?php echo $temporary_url; ?>" target="_blank" class="btn btn-warning btn-sm"><i class="glyphicon glyphicon-share-alt"></i> Показать на сайте</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	  <button class="btn btn-primary btn-sm" onClick="submit();">Сохранить</button></td></tr>
@@ -79,6 +106,13 @@ if(isset($_GET['edit_item'])) {
 	  <script>
 	    $("#edit_category [value=\'<?php echo $edit_items['category'] ?>\']").attr("selected", "selected");
 	    $("#edit_country [value=\'<?php echo $edit_items['country'] ?>\']").attr("selected", "selected");
+            function addVariant() {
+                var id = Math.floor(Math.random() * (999999 - 123211 + 1)) + 123211;
+                $(".variants").after('<tr id="'+id+'"><td colspan="2">Название:&nbsp;<input type="text" name="variants_name[]" value="" />&nbsp;&nbsp;Артикул:&nbsp;<input type="text" name="variants_sku[]" value="" style="width:150px;" />&nbsp;&nbsp;Цена:&nbsp;<input type="text" name="variants_price[]" value="" style="width:60px;" />&nbsp;&nbsp;Старая цена:&nbsp;<input type="text" name="variants_price_old[]" style="width:60px;" value="" />&nbsp;&nbsp;Вес:&nbsp;<input type="text" name="variants_weight[]" value="" style="width:50px;" />&nbsp;&nbsp;Количество:&nbsp;<input type="text" name="variants_quantity[]" value="" style="width:50px;" />&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onClick="deleteVariant(\''+id+'\'); return false;">Удалить</a><input type="hidden" name="variants_pic_url[]" /></td></tr>');
+            }
+            function deleteVariant(id) {
+                $('#'+id).remove();
+            }
 	   </script>
 	
 	<?php } else { // Создаем новый товар
@@ -91,7 +125,7 @@ if(isset($_GET['edit_item'])) {
 	<div class="box-inner">
 	
 	<div class="box-header well" data-original-title="">
-	  <h2><i class="glyphicon glyphicon-globe"></i> Новый товар</h2>
+	  <h2><i class="glyphicon glyphicon-edit"></i> Новый товар</h2>
 	</div>
 	
 	<div class="box-content">
@@ -103,8 +137,8 @@ if(isset($_GET['edit_item'])) {
 </thead>
 <tbody>
 	<form method="POST" action="/admin/goods/<?php echo $add_link ?>" enctype="multipart/form-data">
-	  <tr><td>Название:</td><td><input type="text" name="edit_title" value="" size="100" /></td></tr>
-	  <tr><td>URL:</td><td><input type="text" name="edit_url" value="" size="100" /></td></tr>
+	  <tr><td>Название:</td><td><input type="text" id="edit_title" name="edit_title" value="" size="100" /></td></tr>
+	  <tr><td>URL:</td><td><input type="text" id="edit_url" name="edit_url" value="" size="100" /></td></tr>
 	  <tr><td>Изображение:</td><td><input type="file" name="edit_pic_url" /></td></tr>
 	  
 	  <tr><td>Категория:</td><td><select name="edit_category" id="edit_category">
@@ -115,24 +149,91 @@ if(isset($_GET['edit_item'])) {
 	     <?php echo $this->printCountry() ?>
 	     </select>
 	  </td></tr>
-	  <tr><td>Показывать в меню:</td><td><input type="checkbox" name="edit_view_menu" value="1" checked /></td></tr>
-	  <tr><td>Цена:</td><td><input type="text" name="edit_price" value="" /></td></tr>
-	  <tr><td>Цена закуп:</td><td><input type="text" name="edit_price_zakup" value="" /></td></tr>
-	  
-	  <input type="hidden" name="edit_prop" value="" />
+	  <tr><td colspan="2">
+                  Показывать товар:&nbsp;<input type="checkbox" name="edit_view_menu" value="1" checked />&nbsp;&nbsp;&nbsp;&nbsp;
+                  Показывать в Новинках:&nbsp;<input type="checkbox" name="edit_new" value="1" />&nbsp;&nbsp;&nbsp;&nbsp;
+                  Показывать в Рекомендуемых:&nbsp;<input type="checkbox" name="edit_favorite" value="1" />
+          </td></tr>
 	  <input type="hidden" name="edit_item" value="<?php echo $_GET['edit_item'] ?>" />
-	  	  
-	  <tr><td>Количество:</td><td><input type="text" name="edit_quantity" value="" /></td></tr>
-	  <tr><td>Вес:</td><td><input type="text" name="edit_weight" value="" /></td></tr>
-	  <tr><td>Длина:</td><td><input type="text" name="edit_lenght" value="" /></td></tr> 
-	  
-	  <tr><td colspan="2"><textarea name="edit_content" style="width:100%;height:500px;"></textarea></td></tr>
+	  <tr class="variants"><td colspan="2">
+                Название:&nbsp;<input type="text" name="variants_name[]" value="" />&nbsp;
+                Артикул:&nbsp;<input type="text" name="variants_sku[]" value="" style="width:150px;" />&nbsp;
+                Цена:&nbsp;<input type="text" name="variants_price[]" value="" style="width:60px;" />&nbsp;
+                Старая цена:&nbsp;<input type="text" name="variants_price_old[]" style="width:60px;" value="" />&nbsp;
+                Вес:&nbsp;<input type="text" name="variants_weight[]" value="" style="width:50px;" />&nbsp;
+                Количество:&nbsp;<input type="text" name="variants_quantity[]" value="" style="width:50px;" />&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="#" onClick="addVariant(); return false;"><i class="glyphicon glyphicon-plus"></i>&nbsp;Добавить</a>
+                <input type="hidden" name="variants_pic_url[]" value= "" />
+          </td></tr>
+          <tr><td colspan="2"><textarea name="edit_content" style="width:100%;height:500px;"></textarea></td></tr>
 	  <tr><td colspan="2"><button class="btn btn-primary btn-sm" onClick="submit();">Сохранить</button></td></tr>
 	  </form>
 	  </tbody>
 	  </table>
 	  <script>
 	    $("#edit_category [value=\'<?php echo $_GET['get_cat'] ?>\']").attr("selected", "selected");
+            function addVariant() {
+                var id = Math.floor(Math.random() * (999999 - 123211 + 1)) + 123211;
+                $(".variants").after('<tr id="'+id+'"><td colspan="2">Название:&nbsp;<input type="text" name="variants_name[]" value="" />&nbsp;&nbsp;Артикул:&nbsp;<input type="text" name="variants_sku[]" value="" style="width:150px;" />&nbsp;&nbsp;Цена:&nbsp;<input type="text" name="variants_price[]" value="" style="width:60px;" />&nbsp;&nbsp;Старая цена:&nbsp;<input type="text" name="variants_price_old[]" style="width:60px;" value="" />&nbsp;&nbsp;Вес:&nbsp;<input type="text" name="variants_weight[]" value="" style="width:50px;" />&nbsp;&nbsp;Количество:&nbsp;<input type="text" name="variants_quantity[]" value="" style="width:50px;" />&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onClick="deleteVariant(\''+id+'\'); return false;">Удалить</a><input type="hidden" name="variants_pic_url[]" value= "" /></td></tr>');
+            }
+            function deleteVariant(id) {
+                $('#'+id).remove();
+            }
+function translit(){
+// Символ, на который будут заменяться все спецсимволы
+var space = '-'; 
+// Берем значение из нужного поля и переводим в нижний регистр
+var text = $('#edit_title').val().toLowerCase();
+     
+// Массив для транслитерации
+var transl = {
+'а':'a','б':'b','в':'v','г':'g','д':'d','е':'e','ё':'e','ж':'zh', 
+'з':'z','и':'i','й':'j','к':'k','л':'l','м':'m','н':'n',
+'о':'o','п':'p','р':'r','с':'s','т':'t','у':'u','ф':'f','х':'h',
+'ц':'c','ч':'ch','ш':'sh','щ':'sh','ъ':'','ы':'y','ь':'','э':'e','ю':'yu','я':'ya',
+' ': space, '_': space, '`': space, '~': space, '!': space, '@': space,
+'#': space, '$': space, '%': space, '^': space, '&': space, '*': space, 
+'(': space, ')': space,'-': space, '\=': space, '+': space, '[': space, 
+']': space, '\\': space, '|': space, '/': space,'.': space, ',': space,
+'{': space, '}': space, '\'': space, '"': space, ';': space, ':': space,
+'?': space, '<': space, '>': space, '№':space
+}
+                
+var result = '';
+var curent_sim = '';
+                
+for(i=0; i < text.length; i++) {
+    // Если символ найден в массиве то меняем его
+    if(transl[text[i]] != undefined) {
+         if(curent_sim != transl[text[i]] || curent_sim != space){
+             result += transl[text[i]];
+             curent_sim = transl[text[i]];
+                                                        }                                                                             
+    }
+    // Если нет, то оставляем так как есть
+    else {
+        result += text[i];
+        curent_sim = text[i];
+    }                              
+}          
+                
+result = TrimStr(result);               
+                
+// Выводим результат 
+$('#edit_url').val(result); 
+    
+}
+function TrimStr(s) {
+    s = s.replace(/^-/, '');
+    return s.replace(/-$/, '');
+}
+// Выполняем транслитерацию при вводе текста в поле
+$(function(){
+    $('#edit_title').keyup(function(){
+         translit();
+         return false;
+    });
+});
 	   </script>
 	  </div>
 	  </div>

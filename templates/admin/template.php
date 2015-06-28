@@ -43,10 +43,9 @@
 <span class="icon-bar"></span>
 </button>
 <a class="navbar-brand" href="/"> <span><?php echo Engine::$settings['main_name'] ?></span></a>
-<?php $temp_name = ($user->Name == "") ? $user->Login : $user->Name ?>
 <div class="btn-group pull-right">
 <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-<i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs"> <?php echo $temp_name ?></span>
+<i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs"> <?php echo ($user->Name == "") ? $user->Login : $user->Name ?></span>
 <span class="caret"></span>
 </button>
 <ul class="dropdown-menu">
