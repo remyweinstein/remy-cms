@@ -24,8 +24,10 @@
       </ul>
     </div>
     <div class="search_tab">
-      <input type="text" class="search" value="поиск" />
+        <form action="/search/" method="POST">
+      <input type="text" class="search" value="" placeholder="поиск" />
       <input type="image" src="<?php echo HOST_TEMPL; ?>images/search.gif" class="search_bt" />
+        </form>
     </div>
   </div>
   <div id="main_content">
