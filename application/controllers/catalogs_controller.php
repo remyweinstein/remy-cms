@@ -42,7 +42,26 @@ class catalogs_Controller extends Base_Controller {
 			}
 			
 		}
-		$this->getView(Engine::$curUrlName);
+                
+                if(!isset($_GET['edit_category']) && !isset($_GET['add_category'])) { // Список категорий
+                    $view = 'catalogs';
+                } else {
+                    if($_GET['edit_category'] > 0 && $_GET['add_category'] == 0) { // Редактирование страницы
+                        $edit_categorys = dBShop::getContentCatById($_GET['edit_category']);
+                        if($edit_categorys['active'] == 1) $temp_view_menu = ' checked';
+                            else $temp_view_menu = '';
+                        if($edit_categorys['id'] == 1) $temporary_url = Engine::$settings['main_host'];
+                            else $temporary_url = Engine::$settings['main_host'].'catalog/'.$edit_categorys['url'].'/';
+
+                        $view = 'catalogs_edit';
+                    }
+                    if(($_GET['add_category'] > 0 || $_GET['add_category'] == 0) && $_GET['edit_category'] == 0) { // Создаем новую страницу
+                        $edit_categorys = dBShop::getContentCatById($_GET['edit_category']);
+                        
+                        $view = 'catalogs_new';
+                    }
+                }
+		$this->getView($view);
 	}
 	
 	public function printParentCats($parent = 0, $level = 0) {
