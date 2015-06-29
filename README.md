@@ -1,7 +1,8 @@
 Remy CMS
-
 PHP
 
+Backup demo database in a folder "backup"
+ 
 Add location for Nginx
 
 	location / {
