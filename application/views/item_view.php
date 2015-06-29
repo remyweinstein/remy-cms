@@ -1,9 +1,10 @@
 <div class="product_box_details">
-    <img src="/uploads/<?php echo $this->data_item['pic_url'] ?>" alt=""style="width:145px;" class="prod_image" />
+    <img src="/uploads/<?php echo $this->data_item['pic_url'] ?>" alt=""style="width:250px;" class="prod_image" />
     <div class="product_details_wide">
-        <div class="prod_title"><?php echo $this->data_item['title'] ?></div>
+        <div class="prod_title1"><?php echo $this->data_item['title'] ?></div>
         <p> <?php echo $this->data_item['annotation'] ?> </p>
         <p class="price">Размеры: <a href="#">XS</a>, <a href="#">S</a>, <a href="#">M</a></p>
+        <br><br>
         <p class="price">Цена: <span class="price"><?php echo $this->data_item['price'] ?> Р</span></p>
     </div>
 </div>

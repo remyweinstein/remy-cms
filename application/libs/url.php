@@ -51,7 +51,11 @@ class Url {
                                                     Engine::$curTemplate = "auth";
                                                     break;
 						default:
-                                                    Engine::$curController = self::clearSection($catalogies[0]);
+                                                    if(class_exists(self::clearSection($catalogies[0]) . '_controller')) {
+							Engine::$curController = self::clearSection($catalogies[0]);
+                                                    } else {
+                                                        Engine::$curUrlName = self::clearSection($catalogies[0]);
+                                                    }
                                                     break;
 					}
 					break;
