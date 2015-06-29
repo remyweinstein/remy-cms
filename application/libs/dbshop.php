@@ -169,6 +169,22 @@ class dBShop extends dB {
     //       Таблица Items
     // *****************************
     
+    public static function getRecomendedItems($kolvo){
+    	$result = false;
+        $query = self::$database->prepare("SELECT * FROM ".PREFIX."catalog_items WHERE favorite = 1 ORDER BY `id` ASC LIMIT 0, ".$kolvo);
+        $query->execute(array());
+    	$result = $query->fetchAll();
+    	return $result;
+    }
+    
+    public static function getNewItems($kolvo){
+    	$result = false;
+        $query = self::$database->prepare("SELECT * FROM ".PREFIX."catalog_items WHERE new = 1 ORDER BY `id` ASC LIMIT 0, ".$kolvo);
+        $query->execute(array());
+    	$result = $query->fetchAll();
+    	return $result;
+    }
+    
     public static function getAllItems($category) {
     	$result = false;
     	if($category == 0) {
@@ -231,7 +247,7 @@ class dBShop extends dB {
     				':active'  => $data['active'],
     				':country'  => $data['country'],
     				':new'  => $data['new'],
-    				':favorite'  => $data['fav']
+    				':favorite'  => $data['favorite']
     				 ));
     	}
     	return $result;

@@ -2,6 +2,8 @@
 
 class item_Controller extends Base_Controller{
     public $data_item;
+    public $recomended;
+    public $variants;
     
     public function __construct() {	
         parent::__construct();
@@ -13,10 +15,11 @@ class item_Controller extends Base_Controller{
             Engine::$curIdPage = $model->id;
             Engine::$curTemplate = $model->template=="" ? Engine::$curTemplate : $model->template;
         $this->data_item = $model->result;
+        $this->recomended = $model->RecomendedItems(7);
+        $this->variants = $model->getVariants($model->id);
+        
         $this->getView('item');
-
 	}
-    
     
     
 }

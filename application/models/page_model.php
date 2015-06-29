@@ -25,6 +25,30 @@ class Page_Model {
         $this->template = $result['template'];
     }
 
-	
+    public function NewItems($items){
+        $content = '';
+        $result = dBShop::getNewItems($items);
+        for($i=0;$i<count($result);$i++) {
+        $content .= '<div class="product_box"> <img src="uploads/'.$result[$i]['pic_url'].'" style="width:144px;height:216px;" alt="" class="prod_image" />
+        <div class="product_details">
+          <div class="prod_title">'.$result[$i]['title'].'</div>
+          <p> '.$result[$i]['annotation'].' </p>
+          <p class="price">Цена: <span class="price">'.$result[$i]['price'].' Р</span></p><br><br>
+          <div class="button"><a href="/item/'.$result[$i]['url'].'/">Подробнее</a></div>
+        </div>
+        </div>
+        ';
+        }
+        return $content;
+    }
+    
+        public function RecomendedItems($items) {
+            $content = '';
+            $result = dBShop::getRecomendedItems($items);
+            for($i=0;$i<count($result);$i++) {
+                $content .= '<a href="/item/'.$result[$i]['url'].'/"><img src="/uploads/'.$result[$i]['pic_url'].'" alt="'.$result[$i]['title'].'" style="width:80px;height:120px;" class="sp" border="0" /></a>';
+            }
+            return $content;
+        }
 	
 }
