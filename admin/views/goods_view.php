@@ -35,6 +35,7 @@ if(isset($_GET['edit_item'])) {
 	</div>
 	
 	<div class="box-content">
+	  <form method="POST" action="/admin/goods/?category_id=<?php echo $edit_items['category'] ?>" enctype="multipart/form-data">
 	<table class="table table-striped">
 <thead>
 <tr>
@@ -42,7 +43,6 @@ if(isset($_GET['edit_item'])) {
 </tr>
 </thead>
 <tbody>
-	  <form method="POST" action="/admin/goods/?category_id=<?php echo $edit_items['category'] ?>" enctype="multipart/form-data">
 	  <tr><td>Название:</td><td><input type="text" name="edit_title" value="<?php echo $edit_items['title'] ?>" size="100" /></td></tr>
 	  <tr><td>URL:</td><td><input type="text" name="edit_url" value="<?php echo $edit_items['url'] ?>" size="100" /></td></tr>
 
@@ -71,13 +71,15 @@ if(isset($_GET['edit_item'])) {
 	  <tr><td colspan="2">
                   Показывать товар:&nbsp;<input type="checkbox" name="edit_view_menu" value="1"<?php echo $temp_view_menu ?> />&nbsp;&nbsp;&nbsp;&nbsp;
                   Показывать в Новинках:&nbsp;<input type="checkbox" name="edit_new" value="1"<?php echo $temp_new ?> />&nbsp;&nbsp;&nbsp;&nbsp;
-                  Показывать в Рекомендуемых:&nbsp;<input type="checkbox" name="edit_favorite" value="1"<?php echo $temp_favorite ?> />
+                  Показывать в Рекомендуемых:&nbsp;<input type="checkbox" name="edit_favorite" value="1"<?php echo $temp_favorite ?> />&nbsp;&nbsp;&nbsp;&nbsp;
+                  <a href="#" onClick="addVariant(); return false;" alt="Добавить новый"><i class="glyphicon glyphicon-plus"></i>&nbsp;Добавить вариант</a>
           </td></tr>
 	  <input type="hidden" name="edit_item" value="<?php echo $_GET['edit_item'] ?>" />
 <?php
 $edit_variants = dBShop::getVariantsByItem($_GET['edit_item']);
 for($i=0;$i<count($edit_variants);$i++) {
-echo '	  <tr class="variants"><td colspan="2">
+$dop_class = (count($edit_variants)==($i+1)) ? ' class="variants"' : '';
+echo '	  <tr'.$dop_class.'><td colspan="2">
                 Название:&nbsp;<input type="text" name="edit_variants_name[]" value="'.$edit_variants[$i]['name'].'" />&nbsp;
                 Артикул:&nbsp;<input type="text" name="edit_variants_sku[]" value="'.$edit_variants[$i]['sku'].'" style="width:150px;" />&nbsp;
                 Цена:&nbsp;<input type="text" name="edit_variants_price[]" value="'.$edit_variants[$i]['price'].'" style="width:60px;" />&nbsp;
@@ -88,17 +90,18 @@ echo '	  <tr class="variants"><td colspan="2">
                 <input type="hidden" name="edit_variants_id[]" value= "'.$edit_variants[$i]['id'].'" />
                 <input type="hidden" name="edit_variants_id_item[]" value= "'.$edit_variants[$i]['id_item'].'" />
                 <a href="/admin/goods/?edit_item='.$_GET['edit_item'].'&delete_variant='.$edit_variants[$i]['id'].'"><i class="glyphicon glyphicon-trash" alt="Удалить"></i></a>&nbsp;&nbsp;
-                <a href="#" onClick="addVariant(); return false;" alt="Добавить новый"><i class="glyphicon glyphicon-plus"></i>&nbsp;Добавить</a>
           </td></tr>
 ';
 }
+if(count($edit_variants)==0) echo '<tr class="variants"><td colspan="2"></td></tr>';
 ?>
+	  <tr><td colspan="2"><textarea name="edit_annotation" style="width:100%;height:200px;"><?php echo $edit_items['annotation'] ?></textarea></td></tr>
 	  <tr><td colspan="2"><textarea name="edit_content" style="width:100%;height:500px;"><?php echo $edit_items['content'] ?></textarea></td></tr>
 	  <tr><td colspan="2"><a href="<?php echo $temporary_url; ?>" target="_blank" class="btn btn-warning btn-sm"><i class="glyphicon glyphicon-share-alt"></i> Показать на сайте</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	  <button class="btn btn-primary btn-sm" onClick="submit();">Сохранить</button></td></tr>
-	  </form>
 </tbody>
 </table>
+	  </form>
 	  </div>
 	  </div>
 	  </div>
@@ -130,6 +133,7 @@ echo '	  <tr class="variants"><td colspan="2">
 	</div>
 	
 	<div class="box-content">
+	<form method="POST" action="/admin/goods/<?php echo $add_link ?>" enctype="multipart/form-data">
 	<table class="table table-striped">
 <thead>
 <tr>
@@ -137,7 +141,6 @@ echo '	  <tr class="variants"><td colspan="2">
 </tr>
 </thead>
 <tbody>
-	<form method="POST" action="/admin/goods/<?php echo $add_link ?>" enctype="multipart/form-data">
 	  <tr><td>Название:</td><td><input type="text" id="edit_title" name="edit_title" value="" size="100" /></td></tr>
 	  <tr><td>URL:</td><td><input type="text" id="edit_url" name="edit_url" value="" size="100" /></td></tr>
 	  <tr><td>Изображение:</td><td><input type="file" name="edit_pic_url" /></td></tr>
@@ -166,11 +169,12 @@ echo '	  <tr class="variants"><td colspan="2">
                 <a href="#" onClick="addVariant(); return false;"><i class="glyphicon glyphicon-plus"></i>&nbsp;Добавить</a>
                 <input type="hidden" name="variants_pic_url[]" value= "" />
           </td></tr>
+	  <tr><td colspan="2"><textarea name="edit_annotation" style="width:100%;height:200px;"><?php echo $edit_items['annotation'] ?></textarea></td></tr>
           <tr><td colspan="2"><textarea name="edit_content" style="width:100%;height:500px;"></textarea></td></tr>
 	  <tr><td colspan="2"><button class="btn btn-primary btn-sm" onClick="submit();">Сохранить</button></td></tr>
-	  </form>
 	  </tbody>
 	  </table>
+	  </form>
 	  <script>
 	    $("#edit_category [value=\'<?php echo $_GET['get_cat'] ?>\']").attr("selected", "selected");
             function addVariant() {

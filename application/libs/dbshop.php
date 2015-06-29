@@ -217,12 +217,15 @@ class dBShop extends dB {
     public static function updateItem($data) {
     	$result = false;
     	if($data) {
-            $query = self::$database->prepare("UPDATE ".PREFIX."catalog_items SET url=:url, category=:category, title=:title, content=:content, pic_url=:pic_url, active=:active, country=:country, new=:new, favorite=:favorite WHERE id=:id");
+            $query = self::$database->prepare("UPDATE ".PREFIX."catalog_items SET url=:url, category=:category, title=:title, price=:price, old_price=:old_price, annotation=:annotation, content=:content, pic_url=:pic_url, active=:active, country=:country, new=:new, favorite=:favorite WHERE id=:id");
             $result = $query->execute(array(
                                 ':id'  => $data['id'],
     				':url'  => $data['url'],
     				':category'  => $data['category'],
     				':title'  => $data['title'],
+    				':price'  => $data['price'],
+    				':old_price'  => $data['old_price'],
+    				':annotation'  => $data['annotation'],
     				':content'  => $data['content'],
     				':pic_url'  => $data['pic_url'],
     				':active'  => $data['active'],
@@ -237,12 +240,15 @@ class dBShop extends dB {
     public static function newItem($data) {
     	$result = false;
     	if($data) {
-            $query = self::$database->prepare("INSERT ".PREFIX."catalog_items (id, url, category, title, content, pic_url, active, country, new, favorite) VALUES (:id, :url, :category, :title, :content, :pic_url, :active, :country, :new, :favorite)");
+            $query = self::$database->prepare("INSERT ".PREFIX."catalog_items (id, url, category, title, price, old_price, annotation, content, pic_url, active, country, new, favorite) VALUES (:id, :url, :category, :title, :price, :old_price, :annotation, :content, :pic_url, :active, :country, :new, :favorite)");
             $result = $query->execute(array(
     				':id'  => '',
     				':url'  => $data['url'],
     				':category'  => $data['category'],
     				':title'  => $data['title'],
+    				':price'  => $data['price'],
+    				':old_price'  => $data['old_price'],
+    				':annotation'  => $data['annotation'],
     				':content'  => $data['content'],
     				':pic_url'  => $data['pic_url'],
     				':active'  => $data['active'],

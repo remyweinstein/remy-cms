@@ -14,6 +14,13 @@ class goods_Controller extends Base_Controller {
 		
 		if(isset($_POST['edit_content'])) { // Сохранение изменений
 
+                        if($_POST['edit_variants_price'][0]!="") {
+                            $item_price = $_POST['edit_variants_price'][0];
+                            $item_old_price = $_POST['edit_variants_price_old'][0];
+                        } else {
+                            $item_price = $_POST['variants_price'][0];
+                            $item_old_price = $_POST['variants_price_old'][0];
+                        }
 			if(isset($_FILES['edit_pic_url'])) {
 				$data['pic_url'] = Engine::UploadFile($_FILES['edit_pic_url']);
 			} else {
@@ -23,6 +30,9 @@ class goods_Controller extends Base_Controller {
 			$data['url'] = $_POST['edit_url'];
 			$data['category'] = $_POST['edit_category'];
 			$data['title'] = $_POST['edit_title'];
+			$data['price'] = $item_price;
+			$data['old_price'] = $item_old_price;
+			$data['annotation'] = $_POST['edit_annotation'];
 			$data['content'] = $_POST['edit_content'];
 			$data['country'] = $_POST['edit_country'];
 			$data['active'] = (isset($_POST['edit_view_menu']) && $_POST['edit_view_menu'] == 1) ? 1 : 0;

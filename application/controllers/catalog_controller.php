@@ -1,5 +1,6 @@
 <?php
 class catalog_Controller extends Base_Controller {
+    public $data_items;
     
     public function __construct() {	
         parent::__construct();
@@ -10,6 +11,10 @@ class catalog_Controller extends Base_Controller {
             $this->title = $model->title;
             Engine::$curIdPage = $model->id;
             Engine::$curTemplate = $model->template=="" ? Engine::$curTemplate : $model->template;
+        
+            $this->data_items = dBShop::getAllItems($model->id);
+        
+        $this->getView('catalog');
 
 	}
     
