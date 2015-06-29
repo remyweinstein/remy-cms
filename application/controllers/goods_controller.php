@@ -29,14 +29,6 @@ class goods_Controller extends Base_Controller {
 			$data['new'] = (isset($_POST['edit_new']) && $_POST['edit_new'] == 1) ? 1 : 0;
 			$data['favorite'] = (isset($_POST['edit_favorite']) && $_POST['edit_favorite'] == 1) ? 1 : 0;
                         
-                        $variants['sku'] = $_POST['variants_sku'];
-                        $variants['name'] = $_POST['variants_name'];
-                        $variants['price'] = $_POST['variants_price'];
-                        $variants['old_price'] = $_POST['variants_price_old'];
-                        $variants['weight'] = $_POST['variants_weight'];
-                        $variants['quantity'] = $_POST['variants_quantity'];
-                        $variants['pic_url'] = $_POST['variants_pic_url'];
-
                         $edit_variants['id'] = $_POST['edit_variants_id'];
                         $edit_variants['id_item'] = $_POST['edit_variants_id_item'];
                         $edit_variants['sku'] = $_POST['edit_variants_sku'];
@@ -46,6 +38,14 @@ class goods_Controller extends Base_Controller {
                         $edit_variants['weight'] = $_POST['edit_variants_weight'];
                         $edit_variants['quantity'] = $_POST['edit_variants_quantity'];
                         $edit_variants['pic_url'] = $_POST['edit_variants_pic_url'];
+                        
+                        $variants['sku'] = $_POST['variants_sku'];
+                        $variants['name'] = $_POST['variants_name'];
+                        $variants['price'] = $_POST['variants_price'];
+                        $variants['old_price'] = $_POST['variants_price_old'];
+                        $variants['weight'] = $_POST['variants_weight'];
+                        $variants['quantity'] = $_POST['variants_quantity'];
+                        $variants['pic_url'] = $_POST['variants_pic_url'];
                         
 			if($_POST['edit_item'] > 0) {         // Редактируем категорию
                             dBShop::updateItem($data);

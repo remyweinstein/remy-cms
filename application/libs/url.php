@@ -43,10 +43,12 @@ class Url {
 						case "login":
                                                     Engine::$curController = "auth";
                                                     Engine::$curUrlName = 'login';
+                                                    Engine::$curTemplate = "auth";
                                                     break;
 						case "registration":
                                                     Engine::$curController = "auth";
                                                     Engine::$curUrlName = 'registration';
+                                                    Engine::$curTemplate = "auth";
                                                     break;
 						default:
                                                     Engine::$curController = self::clearSection($catalogies[0]);
@@ -64,10 +66,12 @@ class Url {
 						case "login":
                                                     Engine::$curController = "auth";
                                                     Engine::$curUrlName = 'login';
+                                                    Engine::$curTemplate = "auth";
                                                     break;
 						case "registration":
                                                     Engine::$curController = "auth";
                                                     Engine::$curUrlName = 'registration';
+                                                    Engine::$curTemplate = "auth";
                                                     break;
 						default:
                                                     if(class_exists(self::clearSection($catalogies[0]) . '_controller')) {

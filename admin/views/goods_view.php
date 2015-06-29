@@ -83,11 +83,12 @@ echo '	  <tr class="variants"><td colspan="2">
                 Цена:&nbsp;<input type="text" name="edit_variants_price[]" value="'.$edit_variants[$i]['price'].'" style="width:60px;" />&nbsp;
                 Старая цена:&nbsp;<input type="text" name="edit_variants_price_old[]" style="width:60px;" value="'.$edit_variants[$i]['old_price'].'" />&nbsp;
                 Вес:&nbsp;<input type="text" name="edit_variants_weight[]" value="'.$edit_variants[$i]['weight'].'" style="width:50px;" />&nbsp;
-                Количество:&nbsp;<input type="text" name="edit_variants_quantity[]" value="'.$edit_variants[$i]['quantity'].'" style="width:50px;" />&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="#" onClick="addVariant(); return false;"><i class="glyphicon glyphicon-plus"></i>&nbsp;Добавить</a>
+                Количество:&nbsp;<input type="text" name="edit_variants_quantity[]" value="'.$edit_variants[$i]['quantity'].'" style="width:50px;" />&nbsp;&nbsp;
                 <input type="hidden" name="edit_variants_pic_url[]" value= "'.$edit_variants[$i]['pic_url'].'" />
                 <input type="hidden" name="edit_variants_id[]" value= "'.$edit_variants[$i]['id'].'" />
                 <input type="hidden" name="edit_variants_id_item[]" value= "'.$edit_variants[$i]['id_item'].'" />
+                <a href="/admin/goods/?edit_item='.$_GET['edit_item'].'&delete_variant='.$edit_variants[$i]['id'].'"><i class="glyphicon glyphicon-trash" alt="Удалить"></i></a>&nbsp;&nbsp;
+                <a href="#" onClick="addVariant(); return false;" alt="Добавить новый"><i class="glyphicon glyphicon-plus"></i>&nbsp;Добавить</a>
           </td></tr>
 ';
 }
