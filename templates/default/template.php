@@ -13,19 +13,18 @@
 <body>
 <div id="main_container">
   <div id="header">
-    <div class="logo"> <a href="#"><img src="<?php echo HOST_TEMPL; ?>images/logo.png" width="221" height="91" alt="" border="0" /></a> </div>
+    <div class="logo"> <a href="/"><img src="<?php echo HOST_TEMPL; ?>images/logo.png" width="221" height="91" alt="" border="0" /></a> </div>
     <div id="menu_tab">
       <ul class="menu">
         <li class="divider"></li>
-        <li><a href="#" class="nav_selected"> home </a></li>
-        <li><a href="about.html" class="nav"> about us</a></li>
-        <li><a href="#" class="nav"> most wanted</a></li>
-        <li><a href="#" class="nav"> how to order</a></li>
-        <li><a href="contact.html" class="nav"> contact </a></li>
+        <li><a href="/about/" class="nav"> о нас </a></li>
+        <li><a href="/payment/" class="nav"> оплата </a></li>
+        <li><a href="/delivery/" class="nav"> доставка </a></li>
+        <li><a href="/contacts/" class="nav"> контакты </a></li>
       </ul>
     </div>
     <div class="search_tab">
-      <input type="text" class="search" value="search" />
+      <input type="text" class="search" value="поиск" />
       <input type="image" src="<?php echo HOST_TEMPL; ?>images/search.gif" class="search_bt" />
     </div>
   </div>
@@ -42,7 +41,7 @@
     <div class="clear"></div>
     <div id="footer">
       <div class="left_foter"><img src="<?php echo HOST_TEMPL; ?>images/footer_logo.gif" alt="" /></div>
-      <div class="center_footer"> <a href="#">Shipping Terms</a> | <a href="#">Terms &amp; Conditions</a> | <a href="#">Privacy Policy</a> | <a href="#">Contact</a> </div>
+      <div class="center_footer"><a href="/terms-delivery/">Условия доставки</a> | <a href="/terms/">Условия и правила</a> | <a href="/privacy/">Политика безопасности</a> | <a href="/contacts/">Контакты</a></div>
     </div>
   </div>
 </div>

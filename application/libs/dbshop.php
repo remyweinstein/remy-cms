@@ -187,7 +187,7 @@ class dBShop extends dB {
     public static function getContentItem($url) {
     	$result = false;
     	if($url) {
-            $query = self::$database->prepare("SELECT id,title,content FROM ".PREFIX."catalog_items WHERE url = :url");
+            $query = self::$database->prepare("SELECT * FROM ".PREFIX."catalog_items WHERE url = :url");
             $query->execute(array('url' => $url));
             $result = $query->fetch();
     	}
