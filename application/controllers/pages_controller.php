@@ -1,6 +1,9 @@
 <?php
 class pages_Controller extends Base_Controller {
-	
+    public $edit_pages;
+    public $temp_view_menu;
+    public $temporary_url;
+    
 	public function __construct() {
 		parent::__construct();
 		
@@ -57,8 +60,26 @@ class pages_Controller extends Base_Controller {
 				if($_POST['edit_parent']>0) dB::checkIsParentPage($_POST['edit_parent']);
 			}
 		}
-		
-		$this->getView(Engine::$curUrlName);
+		if(!isset($_GET['edit_page']) && !isset($_GET['add_page'])) { // Список страниц
+                    $view = 'pages';
+                } else {
+                    if($_GET['edit_page'] > 0 && $_GET['add_page'] == 0) { // Редактирование страницы
+                        $this->edit_pages = dB::getContentPageById($_GET['edit_page']);
+                        if($this->edit_pages['view_menu'] == 1) $this->temp_view_menu = ' checked';
+                            else $this->temp_view_menu = '';
+                        if($this->edit_pages['id'] == 1) $this->temporary_url = Engine::$settings['main_host'];
+                            else $this->temporary_url = Engine::$settings['main_host'].$this->edit_pages['url'].'/';
+                        $view = 'pages_edit';
+                    }
+                    if(($_GET['add_page'] > 0 || $_GET['add_page'] == 0) && $_GET['edit_page'] == 0) { // Создаем новую страницу 
+                        $edit_pages = dB::getContentPageById($_GET['edit_page']);
+                        if($edit_pages['view_menu'] == 1) $temp_view_menu = ' checked';
+                            else $temp_view_menu = '';  
+                        $view = 'pages_new';
+                    }                    
+                }
+
+		$this->getView($view);
 	}
 	
 	public function getNamesTemplates() {

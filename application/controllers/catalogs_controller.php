@@ -1,7 +1,10 @@
 <?php
 class catalogs_Controller extends Base_Controller {
-	
-	public function __construct() {
+    public $edit_categorys;
+    public $temp_view_menu;
+    public $temporary_url;
+
+        public function __construct() {
 		parent::__construct();
 		
 		if(isset($_GET['delete_category'])) {
@@ -47,17 +50,15 @@ class catalogs_Controller extends Base_Controller {
                     $view = 'catalogs';
                 } else {
                     if($_GET['edit_category'] > 0 && $_GET['add_category'] == 0) { // Редактирование страницы
-                        $edit_categorys = dBShop::getContentCatById($_GET['edit_category']);
-                        if($edit_categorys['active'] == 1) $temp_view_menu = ' checked';
-                            else $temp_view_menu = '';
-                        if($edit_categorys['id'] == 1) $temporary_url = Engine::$settings['main_host'];
-                            else $temporary_url = Engine::$settings['main_host'].'catalog/'.$edit_categorys['url'].'/';
+                        $this->edit_categorys = dBShop::getContentCatById($_GET['edit_category']);
+                        if($this->edit_categorys['active'] == 1) $this->temp_view_menu = ' checked';
+                            else $this->temp_view_menu = '';
+                        if($this->edit_categorys['id'] == 1) $this->temporary_url = Engine::$settings['main_host'];
+                            else $this->temporary_url = Engine::$settings['main_host'].'catalog/'.$this->edit_categorys['url'].'/';
 
                         $view = 'catalogs_edit';
                     }
                     if(($_GET['add_category'] > 0 || $_GET['add_category'] == 0) && $_GET['edit_category'] == 0) { // Создаем новую страницу
-                        $edit_categorys = dBShop::getContentCatById($_GET['edit_category']);
-                        
                         $view = 'catalogs_new';
                     }
                 }
