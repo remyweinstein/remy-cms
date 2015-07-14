@@ -123,7 +123,6 @@ class goods_Controller extends Base_Controller {
                         $this->h2_category = '- '.dBShop::getTitleCategory($this->category);
                     }
                     $list_countries = $this->country_title;
-                    echo 'count='.count($arr_items);
                     $view = 'goods';
                 }
                 
