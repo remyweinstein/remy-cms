@@ -21,13 +21,23 @@
 	  <tr><td>Изображение:</td><td><input type="file" name="edit_pic_url" /></td></tr>
 	  
 	  <tr><td>Категория:</td><td><select name="edit_category" id="edit_category">
-	     <?php echo $this->printCats() ?>
+	     <?php echo $this->model->printCats() ?>
 	     </select>
 	  </td></tr>
-	  <tr><td>Производитель:</td><td><select name="edit_country" id="edit_country">
-	     <?php echo $this->printCountry() ?>
-	     </select>
-	  </td></tr>
+	  <tr><td colspan="2">
+                  <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Характеристики товара:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php 
+                        echo $this->model->printProps($this->category);
+                        ?>
+                    </tbody>
+                  </table>
+          </td></tr>
 	  <tr><td colspan="2">
                   Показывать товар:&nbsp;<input type="checkbox" name="edit_view_menu" value="1" checked />&nbsp;&nbsp;&nbsp;&nbsp;
                   Показывать в Новинках:&nbsp;<input type="checkbox" name="edit_new" value="1" />&nbsp;&nbsp;&nbsp;&nbsp;

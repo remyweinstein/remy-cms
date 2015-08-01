@@ -7,11 +7,14 @@ class Engine {
     static public $curIdPage;
     static public $contenteditable;
     static public $settings;
+    static public $user;
+    static public $Module;
 
     public function __construct() {
     }
 	
     public static function init() {
+        self::$user = new User;
         self::$curAdmin = false;
         foreach(dB::getAllSettings() as $key => $value) {
             self::$settings[$value['name']] = $value['value'];
@@ -21,11 +24,11 @@ class Engine {
 	}
         
     public static function run() {
-        $user = new User;
-        $Module = new self::$curController;
-        self::changeTitle($Module->title);
+        $current_controller = self::$curController . '_controller';
+        self::$Module = new $current_controller;
+        self::changeTitle(self::$Module->title);
         if(self::$curTemplate == "none") {
-            echo $Module->content;
+            echo self::$Module->content;
         } else {
             require_once (TEMPLATES.self::$curTemplate.'/template.php');
         }

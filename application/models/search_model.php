@@ -5,7 +5,7 @@ class search_Model {
     public $template;
     public $id;
 	
-	public function __construct() {
+	public function __construct($url_page) {
             /*
             $this->result = dBShop::getContentItem($url_page);
             $this->content = $this->result['content'];

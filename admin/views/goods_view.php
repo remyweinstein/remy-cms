@@ -20,7 +20,7 @@
 		  </tr>
 		  </thead>
 		  <tbody>
-<?php echo $this->printListGoods($this->category) ?>
+<?php echo $this->model->printListGoods($this->category) ?>
 </tbody>
 </table>
 </div>

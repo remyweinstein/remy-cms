@@ -8,15 +8,14 @@ class item_Controller extends Base_Controller{
     public function __construct() {	
         parent::__construct();
         
-	$url_page = Engine::$curUrlName;
-        $model = new item_Model($url_page);
-            $this->content = $model->content;
-            $this->title = $model->title;
-            Engine::$curIdPage = $model->id;
-            Engine::$curTemplate = $model->template=="" ? Engine::$curTemplate : $model->template;
-        $this->data_item = $model->result;
-        $this->recomended = $model->RecomendedItems(7);
-        $this->variants = $model->getVariants($model->id);
+        $this->model = new item_Model(Engine::$curUrlName);
+            $this->content = $this->model->content;
+            $this->title = $this->model->title;
+            Engine::$curIdPage = $this->model->id;
+            Engine::$curTemplate = $this->model->template=="" ? Engine::$curTemplate : $this->model->template;
+        $this->data_item = $this->model->result;
+        $this->recomended = $this->model->RecomendedItems(7);
+        $this->variants = $this->model->getVariants($this->model->id);
         
         $this->getView('item');
 	}

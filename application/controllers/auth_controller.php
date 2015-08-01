@@ -9,6 +9,7 @@ class auth_Controller extends Base_Controller {
         parent::__construct();
             
         $this->model = new auth_Model();
+        
         if(Engine::$curUrlName=="login") {
             self::procInputLogin();
             $this->title = "Авторизация";

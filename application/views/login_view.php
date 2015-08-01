@@ -1,5 +1,5 @@
 <?php 
-if(User::$globalRole != null) {
+if(Engine::$user->$Role != false) {
 ?>
     Вы уже авторизованы на сайте!
 <?php

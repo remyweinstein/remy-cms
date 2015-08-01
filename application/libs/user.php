@@ -7,7 +7,6 @@ class User {
 	public $Status = false;
 	public $Email = false;
 	public $Picture = false;
-	public static $globalRole = null;
 
 	public function __construct() {
 
@@ -17,14 +16,13 @@ class User {
 		if(isset($_SESSION['hash'])) {
 			$result = dB::getUserByHash($_SESSION['hash']);
 			if($result) {
-				$this->Id = $result['id']; 
-				$this->Login = $result['login']; 
-				$this->Name = $result['name']; 
-				$this->Role = $result['role']; 
-				$this->Status = $result['status']; 
-				$this->Email = $result['email']; 
+				$this->Id = $result['id'];
+				$this->Login = $result['login'];
+				$this->Name = $result['name'];
+				$this->Role = $result['role'];
+				$this->Status = $result['status'];
+				$this->Email = $result['email'];
 				$this->Picture = $result['picture'];
-				self::$globalRole = $result['role'];
 			}
 		}
 	}

@@ -6,8 +6,7 @@ class search_Controller extends Base_Controller{
     public function __construct() {	
         parent::__construct();
         
-	$url_page = Engine::$curUrlName;
-        $model = new search_Model();
+        $this->model = new search_Model(Engine::$curUrlName);
 /*
         $this->content = $model->content;
             $this->title = $model->title;

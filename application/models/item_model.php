@@ -9,7 +9,7 @@ class item_Model {
 	
 	public function __construct($url_page) {
             $this->result = dBShop::getContentItem($url_page);
-            $this->content = $this->result['content'];
+            $this->content = $this->result['description'];
             $this->title = $this->result['title'];
             $this->id = $this->result['id'];
             $this->template = $this->result['template'];

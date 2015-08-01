@@ -92,7 +92,6 @@ class Url {
 			}
 		}
 		define('HOST_TEMPL', HTTP_HOST.TEMPLATES.Engine::$curTemplate.'/');
-                Engine::$curController = Engine::$curController . '_controller';
 	}
 
 	public static function stripslashesArray($array) {

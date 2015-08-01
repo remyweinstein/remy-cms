@@ -3,8 +3,8 @@
 class auth_Model {
     public $data_user;
     
-    public function __construct($login) {
-        $this->data_user = self::getUserByLogin($login);
+    public function __construct() {
+        
     }
     
     public function getUserByLogin($login) {

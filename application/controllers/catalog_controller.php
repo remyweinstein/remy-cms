@@ -5,14 +5,13 @@ class catalog_Controller extends Base_Controller {
     public function __construct() {	
         parent::__construct();
         
-	$url_page = Engine::$curUrlName;
-        $model = new catalog_Model($url_page);
-            $this->content = $model->content;
-            $this->title = $model->title;
-            Engine::$curIdPage = $model->id;
-            Engine::$curTemplate = $model->template=="" ? Engine::$curTemplate : $model->template;
+        $this->model = new catalog_Model(Engine::$curUrlName);
+            $this->content = $this->model->content;
+            $this->title = $this->model->title;
+            Engine::$curIdPage = $this->model->id;
+            Engine::$curTemplate = $this->model->template=="" ? Engine::$curTemplate : $this->model->template;
         
-            $this->data_items = dBShop::getAllItems($model->id);
+            $this->data_items = dBShop::getAllItems($this->model->id);
         
         $this->getView('catalog');
 

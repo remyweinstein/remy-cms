@@ -10,7 +10,7 @@
     </head>
     <body>
     <div class="login_panel">
-    <?php echo $Module->content; ?>
+    <?php echo Engine::$Module->content; ?>
     </div>
 	</body>
 </html>

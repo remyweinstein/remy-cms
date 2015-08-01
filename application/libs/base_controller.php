@@ -5,10 +5,11 @@ class Base_Controller {
     public $title = "";
     public $leftmenu = "";
     public $breadcrumbs = "";
+    public $model;
 
     function __construct() {
         if(Engine::$curAdmin) {
-            if(User::$globalRole < 2) {
+            if(Engine::$user->Role < 2) {
                 Engine::DirectLink("/login/");
             } else {
                 Engine::$curTemplate = "admin";
