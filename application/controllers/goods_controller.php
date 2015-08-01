@@ -8,6 +8,7 @@ class goods_Controller extends Base_Controller {
         public $temp_favorite;
         public $temp_new;
         public $temp_view_menu;
+        public $id_tov;
         
 	public function __construct() {
 		parent::__construct();
@@ -35,9 +36,14 @@ class goods_Controller extends Base_Controller {
 				$data['pic_url'] = $_POST['edit_pic_url'];
 			}
                         
-                        $edit_props = '';
                         $edit_variants_skus = '';
                         $variants_skus = '';
+                        $edit_props = '';
+                        
+                        foreach($_POST['prop'] as $k=>$v) {
+                            $edit_props .= $k.'_'.$v.' ';
+                        }
+                        $edit_props = mb_substr($edit_props, 0, -1);
                         
 			$data['id'] = $_POST['edit_item'];
 			$data['url'] = $_POST['edit_url'];
@@ -56,7 +62,7 @@ class goods_Controller extends Base_Controller {
                         $edit_variants['id'] = $_POST['edit_variants_id'];
                         $edit_variants['id_item'] = $_POST['edit_variants_id_item'];
                         $edit_variants['skus'] = $edit_variants_skus;
-                        $edit_variants['name'] = $_POST['edit_variants_name'];
+                        $edit_variants['articul'] = $_POST['edit_variants_articul'];
                         $edit_variants['price'] = $_POST['edit_variants_price'];
                         $edit_variants['old_price'] = $_POST['edit_variants_price_old'];
                         $edit_variants['weight'] = $_POST['edit_variants_weight'];
@@ -64,7 +70,7 @@ class goods_Controller extends Base_Controller {
                         $edit_variants['pic_url'] = $_POST['edit_variants_pic_url'];
                         
                         $variants['skus'] = $variants_skus;
-                        $variants['name'] = $_POST['variants_name'];
+                        $variants['articul'] = $_POST['variants_articul'];
                         $variants['price'] = $_POST['variants_price'];
                         $variants['old_price'] = $_POST['variants_price_old'];
                         $variants['weight'] = $_POST['variants_weight'];
@@ -97,6 +103,7 @@ class goods_Controller extends Base_Controller {
                     if($_GET['edit_item'] > 0) { // Редактирование товара
                         $this->edit_items = dBShop::getItemById($_GET['edit_item']);
                         $this->category = $this->edit_items['id_cat'];
+                        $this->id_tov = $_GET['edit_item'];
                         if($this->edit_items['active'] == 1) {
                             $this->temp_view_menu = ' checked';
                         } else {
@@ -119,6 +126,7 @@ class goods_Controller extends Base_Controller {
                         
                     } else { // Создаем новый товар
                         $this->category = $_GET['get_cat'];
+                        $this->id_tov = 0;
                 	$this->add_link = ($_GET['get_cat']>0) ? '?category_id='.$_GET['get_cat'] : '';
                         
                         $view = 'goods_new';

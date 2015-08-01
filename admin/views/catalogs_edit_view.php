@@ -15,10 +15,22 @@
   <tr><td>URL:</td><td><input type="text" name="edit_url" value="<?php echo $this->edit_categorys['url'] ?>" size="100" /></td></tr>
   <tr><td>Родитель:</td><td><select name="edit_parent" id="edit_parent">
      <option value="0"> --- </option>
-     <?php echo $this->printParentCats() ?>
+     <?php echo $this->model->printParentCats() ?>
      </select>
   </td></tr>
   <tr><td>Показывать в меню:</td><td><input type="checkbox" name="edit_view_menu" value="1"<?php echo $this->temp_view_menu ?> /></td></tr>
+                  <table class="table table-striped" id="table-add-props">
+                    <thead>
+                        <tr>
+                            <th>Характеристики:&nbsp;<a href="#" rel="<?php echo $this->category ?>" class="poplight">Добавить характеристики</a></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php 
+                        echo $this->model->printProps($this->category);
+                        ?>
+                    </tbody>
+                  </table>
   <tr><td colspan="2"><textarea name="edit_content" style="width:100%;height:500px;"><?php echo $this->edit_categorys['content'] ?></textarea></td></tr>
   <tr><td colspan="2"><a href="<?php echo $this->temporary_url; ?>" target="_blank" class="btn btn-warning btn-sm"><i class="glyphicon glyphicon-share-alt"></i> Показать на сайте</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <button class="btn btn-primary btn-sm" onClick="submit();">Сохранить</button></td></tr>
@@ -31,5 +43,5 @@
   </div>
   </div>
   <script>
-    $("#edit_parent [value=\'<?php echo $this->edit_categorys['parent'] ?>\']").attr("selected", "selected");
+    $("#edit_parent [value=\'<?php echo $this->category ?>\']").attr("selected", "selected");
   </script>

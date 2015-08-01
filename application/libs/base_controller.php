@@ -9,7 +9,7 @@ class Base_Controller {
 
     function __construct() {
         if(Engine::$curAdmin) {
-            if(Engine::$user->Role < 2) {
+            if(Engine::$user->Role < 5) {
                 Engine::DirectLink("/login/");
             } else {
                 Engine::$curTemplate = "admin";

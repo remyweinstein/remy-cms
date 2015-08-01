@@ -158,10 +158,10 @@ class dBShop extends dB {
     
     public static function getTitleCategory($id) {
     	$result = false;
-    	$query = self::$database->prepare("SELECT id,title FROM ".PREFIX."items_categories WHERE `id` = :id");
+    	$query = self::$database->prepare("SELECT title FROM ".PREFIX."items_categories WHERE `id` = :id");
     	$query->execute(array(':id' => $id));
     	$result = $query->fetch();
-    	return $result;
+    	return $result['title'];
     }
     
     
@@ -169,6 +169,39 @@ class dBShop extends dB {
     //       Таблица Items
     // *****************************
     
+    public static function getItemProps($id) {
+    	$result = false;
+        $query = self::$database->prepare("SELECT `props` FROM ".PREFIX."items WHERE `id` = ".$id."");
+        $query->execute(array());
+    	$t_res = $query->fetch();
+        $t_res = $t_res['props'];
+        $t_res = explode(" ", $t_res);
+        for($i=0;$i<count($t_res);$i++) {
+            $tt_res = explode("_", $t_res[$i]);
+            $result[$tt_res[0]] = $tt_res[1];
+        }
+        
+    	return $result;
+    }
+
+    public static function searchForCleanProps($pid, $category){
+    	$result = false;
+        $query = self::$database->prepare("SELECT `id`,`props` FROM ".PREFIX."items WHERE (`id_cat`=".$category." AND `props` LIKE  '%".$pid."_%')");
+        $query->execute(array());
+    	$result = $query->fetchAll();
+
+        return $result;
+    }
+
+    public static function updateItemProps($id, $props){
+    	$result = false;
+        $query = self::$database->prepare("UPDATE ".PREFIX."items SET props=:props WHERE `id`=".$id);
+        $result = $query->execute(array(
+    				':props'  => $props,
+        ));
+    	return $result;
+    }
+
     public static function getRecomendedItems($kolvo){
     	$result = false;
         $query = self::$database->prepare("SELECT `url`,`pic_url`,`title` FROM ".PREFIX."items WHERE `favorite` = 1 ORDER BY `id` ASC LIMIT 0, ".$kolvo);
@@ -379,8 +412,8 @@ class dBShop extends dB {
     				':id'  => $id
                                 ));
     	}
+        
     	return $result;
-
     }
     
     public static function deletePicVariant($id) {
@@ -402,21 +435,52 @@ class dBShop extends dB {
     //       Таблица Cat_props
     // *****************************
     
- 
-    public static function getCatProps($category) {
+    public static function addProp($data) {
     	$result = false;
+    	if($data) {
+            $query = self::$database->prepare("INSERT ".PREFIX."items_cat_props (id_cat, pid) VALUES (:id_cat, :pid)");
+            $result = $query->execute(array(
+    				':id_cat'  => $data['id_cat'],
+    				':pid'  => $data['pid']
+                                ));
+    	}
+    	return $result;
+    }
+    
+    public static function getCatProps($category) {
     	$query = self::$database->prepare("SELECT `pid` FROM ".PREFIX."items_cat_props WHERE `id_cat`=".$category);
     	$query->execute(array());
-    	$result = $query->fetchAll();
+    	$temp = $query->fetchAll();
+        for($i=0;$i<count($temp);$i++) {
+            $result[] = $temp[$i]['pid'];
+        }
     	return $result;
     }
 
+    public static function deletePropCat($pid, $category) {
+    	$result = false;
+            $query = self::$database->prepare("DELETE FROM ".PREFIX."items_cat_props WHERE (id_cat=:id_cat AND pid=:pid)");
+            $result = $query->execute(array(
+    				':id_cat'  => $category,
+    				':pid'  => $pid
+                                ));
+    	return $result;
+    }
+    
     
     
     // *****************************
     //       Таблица Prop_names
     // *****************************
     
+ 
+    public static function getAllProps() {
+    	$result = false;
+    	$query = self::$database->prepare("SELECT `id`,`name` FROM ".PREFIX."items_prop_names ORDER BY sort");
+    	$query->execute(array());
+    	$result = $query->fetchAll();
+    	return $result;
+    }
  
     public static function getPropName($pid) {
     	$result = false;

@@ -12,7 +12,7 @@
 <div class="alert alert-info">
 <a href="/admin/catalogs/?add_category=0" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-plus-sign"></i> Добавить новую категорию</a>
 </div>
-<?php echo $this->printTreeCats(0, false) ?>
+<?php echo $this->model->printTreeCats(0, false) ?>
 </div>
   </div>
   </div>

@@ -23,6 +23,8 @@
 <link href="<?php echo HOST_TEMPL ?>css/animate.min.css" rel="stylesheet">
 <link href="<?php echo HOST_TEMPL ?>css/bootstrap-wysiwyg.css" rel="stylesheet">
 
+<link href="<?php echo HOST_TEMPL ?>css/style.css" rel="stylesheet">
+
 <script src="<?php echo HOST_TEMPL ?>js/jquery.min.js"></script>
 <script src="<?php echo HOST_TEMPL ?>js/bootstrap-wysiwyg.js"></script>
 
@@ -135,5 +137,6 @@ enabled to use this site.</p>
 <script src="<?php echo HOST_TEMPL; ?>js/jquery.autogrow-textarea.js"></script>
 <script src="<?php echo HOST_TEMPL; ?>js/jquery.uploadify-3.1.min.js"></script>
 <script src="<?php echo HOST_TEMPL; ?>js/jquery.history.js"></script>
+<script src="<?php echo HOST_SCRIPTS; ?>admin.js"></script>
 </body>
 </html>

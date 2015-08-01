@@ -8,7 +8,7 @@
 	</div>
 	
 	<div class="box-content">
-	  <form method="POST" action="/admin/goods/?category_id=<?php echo $this->edit_items['category'] ?>" enctype="multipart/form-data">
+	  <form method="POST" action="/admin/goods/?category_id=<?php echo $this->category ?>" enctype="multipart/form-data">
 	<table class="table table-striped">
 <thead>
 <tr>
@@ -45,7 +45,7 @@
                     </thead>
                     <tbody>
                         <?php 
-                        echo $this->model->printProps($this->category);
+                        echo $this->model->printProps($this->category, $this->id_tov);
                         ?>
                     </tbody>
                   </table>
@@ -63,7 +63,7 @@ $edit_variants = dBShop::getVariantsByItem($_GET['edit_item']);
 for($i=0;$i<count($edit_variants);$i++) {
 $dop_class = (count($edit_variants)==($i+1)) ? ' class="variants"' : '';
 echo '	  <tr'.$dop_class.'><td colspan="2">
-                Артикул:&nbsp;<input type="text" name="edit_variants_sku[]" value="'.$edit_variants[$i]['articul'].'" style="width:150px;" />&nbsp;
+                Артикул:&nbsp;<input type="text" name="edit_variants_articul[]" value="'.$edit_variants[$i]['articul'].'" style="width:150px;" />&nbsp;
                 Цена:&nbsp;<input type="text" name="edit_variants_price[]" value="'.$edit_variants[$i]['price'].'" style="width:60px;" />&nbsp;
                 Старая цена:&nbsp;<input type="text" name="edit_variants_price_old[]" style="width:60px;" value="'.$edit_variants[$i]['old_price'].'" />&nbsp;
                 Вес:&nbsp;<input type="text" name="edit_variants_weight[]" value="'.$edit_variants[$i]['weight'].'" style="width:50px;" />&nbsp;
@@ -90,10 +90,10 @@ if(count($edit_variants)==0) echo '<tr class="variants"><td colspan="2"></td></t
 	  </div>
 	  </div>
 	  <script>
-	    $("#edit_category [value=\'<?php echo $this->edit_items['category'] ?>\']").attr("selected", "selected");
+	    $("#edit_category [value=\'<?php echo $this->category ?>\']").attr("selected", "selected");
             function addVariant() {
                 var id = Math.floor(Math.random() * (999999 - 123211 + 1)) + 123211;
-                $(".variants").after('<tr id="'+id+'"><td colspan="2">Артикул:&nbsp;<input type="text" name="variants_sku[]" value="" style="width:150px;" />&nbsp;&nbsp;Цена:&nbsp;<input type="text" name="variants_price[]" value="" style="width:60px;" />&nbsp;&nbsp;Старая цена:&nbsp;<input type="text" name="variants_price_old[]" style="width:60px;" value="" />&nbsp;&nbsp;Вес:&nbsp;<input type="text" name="variants_weight[]" value="" style="width:50px;" />&nbsp;&nbsp;Количество:&nbsp;<input type="text" name="variants_quantity[]" value="" style="width:50px;" />&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onClick="deleteVariant(\''+id+'\'); return false;">Удалить</a><input type="hidden" name="variants_pic_url[]" /></td></tr>');
+                $(".variants").after('<tr id="'+id+'"><td colspan="2">Артикул:&nbsp;<input type="text" name="variants_articul[]" value="" style="width:150px;" />&nbsp;&nbsp;Цена:&nbsp;<input type="text" name="variants_price[]" value="" style="width:60px;" />&nbsp;&nbsp;Старая цена:&nbsp;<input type="text" name="variants_price_old[]" style="width:60px;" value="" />&nbsp;&nbsp;Вес:&nbsp;<input type="text" name="variants_weight[]" value="" style="width:50px;" />&nbsp;&nbsp;Количество:&nbsp;<input type="text" name="variants_quantity[]" value="" style="width:50px;" />&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onClick="deleteVariant(\''+id+'\'); return false;">Удалить</a><input type="hidden" name="variants_pic_url[]" /></td></tr>');
             }
             function deleteVariant(id) {
                 $('#'+id).remove();

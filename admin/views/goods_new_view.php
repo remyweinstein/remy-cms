@@ -33,7 +33,7 @@
                     </thead>
                     <tbody>
                         <?php 
-                        echo $this->model->printProps($this->category);
+                        echo $this->model->printProps($this->category, $this->id_tov);
                         ?>
                     </tbody>
                   </table>
@@ -45,8 +45,7 @@
           </td></tr>
 	  <input type="hidden" name="edit_item" value="<?php echo $_GET['edit_item'] ?>" />
 	  <tr class="variants"><td colspan="2">
-                Название:&nbsp;<input type="text" name="variants_name[]" value="" />&nbsp;
-                Артикул:&nbsp;<input type="text" name="variants_sku[]" value="" style="width:150px;" />&nbsp;
+                Артикул:&nbsp;<input type="text" name="variants_articul[]" value="" style="width:150px;" />&nbsp;
                 Цена:&nbsp;<input type="text" name="variants_price[]" value="" style="width:60px;" />&nbsp;
                 Старая цена:&nbsp;<input type="text" name="variants_price_old[]" style="width:60px;" value="" />&nbsp;
                 Вес:&nbsp;<input type="text" name="variants_weight[]" value="" style="width:50px;" />&nbsp;
@@ -64,7 +63,7 @@
 	    $("#edit_category [value=\'<?php echo $_GET['get_cat'] ?>\']").attr("selected", "selected");
             function addVariant() {
                 var id = Math.floor(Math.random() * (999999 - 123211 + 1)) + 123211;
-                $(".variants").after('<tr id="'+id+'"><td colspan="2">Название:&nbsp;<input type="text" name="variants_name[]" value="" />&nbsp;&nbsp;Артикул:&nbsp;<input type="text" name="variants_sku[]" value="" style="width:150px;" />&nbsp;&nbsp;Цена:&nbsp;<input type="text" name="variants_price[]" value="" style="width:60px;" />&nbsp;&nbsp;Старая цена:&nbsp;<input type="text" name="variants_price_old[]" style="width:60px;" value="" />&nbsp;&nbsp;Вес:&nbsp;<input type="text" name="variants_weight[]" value="" style="width:50px;" />&nbsp;&nbsp;Количество:&nbsp;<input type="text" name="variants_quantity[]" value="" style="width:50px;" />&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onClick="deleteVariant(\''+id+'\'); return false;">Удалить</a><input type="hidden" name="variants_pic_url[]" value= "" /></td></tr>');
+                $(".variants").after('<tr id="'+id+'"><td colspan="2">Артикул:&nbsp;<input type="text" name="variants_articul[]" value="" style="width:150px;" />&nbsp;&nbsp;Цена:&nbsp;<input type="text" name="variants_price[]" value="" style="width:60px;" />&nbsp;&nbsp;Старая цена:&nbsp;<input type="text" name="variants_price_old[]" style="width:60px;" value="" />&nbsp;&nbsp;Вес:&nbsp;<input type="text" name="variants_weight[]" value="" style="width:50px;" />&nbsp;&nbsp;Количество:&nbsp;<input type="text" name="variants_quantity[]" value="" style="width:50px;" />&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onClick="deleteVariant(\''+id+'\'); return false;">Удалить</a><input type="hidden" name="variants_pic_url[]" value= "" /></td></tr>');
             }
             function deleteVariant(id) {
                 $('#'+id).remove();

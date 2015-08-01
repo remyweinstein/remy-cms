@@ -19,6 +19,7 @@ define('TEMPLATES', 'templates/');
 define('PAGE_DIR', 'pages/');
 define('HTTP_HOST', 'http://'.$_SERVER['HTTP_HOST'].'/');
 define('HOST_RES', HTTP_HOST.'resources/');
+define('HOST_SCRIPTS', HTTP_HOST.'scripts/');
 
 $includePath = array(APP_DIR, APP_LIBS, APP_MODELS, APP_CONTROLS);
 set_include_path('.'.PATH_SEPARATOR.implode(PATH_SEPARATOR, $includePath));

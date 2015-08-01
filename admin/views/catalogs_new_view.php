@@ -16,7 +16,7 @@
   <tr><td>Родитель:</td><td>
   	 <select name="edit_parent" id="edit_parent">
      <option value="0"> --- </option>
-     <?php echo $this->printParentCats() ?>
+     <?php echo $this->model->printParentCats() ?>
      </select>
   </td></tr>
   <tr><td>Показывать в меню:</td><td><input type="checkbox" name="edit_view_menu" value="1" checked /></td></tr>

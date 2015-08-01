@@ -41,24 +41,33 @@ class Goods_Model {
             return $content;
         }
         
-	public function printProps($category) {
+	public function printProps($category, $id_tov) {
 		$content = '';
-                $props = dBShop::getCatProps($category);
-                for($y=0;$y<count($props);$y++) {
-                    $name_prop = dBShop::getPropName($props[$y]['pid']);
-                    $values = dBShop::getPropValues($props[$y]['pid']);
-                    $content .= '<tr><td>'.$name_prop.'</td><td>
-                    <select name="prop[\''.$props[$y]['pid'].'\']">
-                    ';
-                    for($i=0;$i<count($values);$i++) {
-			$content .= '<option value="'.$values[$i]['id'].'">'.$values[$i]['name'].'</option>
-			';
-                        }
-                    $content .= '</select>
-                        </td>
-                    </tr>
-                    ';
+                if($category>0) {
+                    $props = dBShop::getCatProps($category);
+                    if($id_tov>0) {
+                        $current_props = dBShop::getItemProps($id_tov);
                     }
+                    for($y=0;$y<count($props);$y++) {
+                        $name_prop = dBShop::getPropName($props[$y]);
+                        $values = dBShop::getPropValues($props[$y]);
+                        $content .= '<tr><td>'.$name_prop.'</td><td>
+                        <select name="prop['.$props[$y].']">
+                        ';
+                        for($i=0;$i<count($values);$i++) {
+                            $content .= '<option value="'.$values[$i]['id'].'"';
+                            if($current_props[$props[$y]] == $values[$i]['id']) {
+                                $content .= ' selected';
+                            }
+                            $content .= '>'.$values[$i]['name'].'</option>
+                            ';
+                        }
+                        $content .= '</select>
+                        </td>
+                        </tr>
+                        ';
+                    }
+                }
 		return $content;
 	}
 	
