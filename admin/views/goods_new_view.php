@@ -28,14 +28,9 @@
                   <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th colspan="2">Характеристики товара:</th>
+                            <th colspan="2">Характеристики товара:&nbsp;(Характеристики можно добавить после сохранения нового товара)</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <?php 
-                        echo $this->model->printProps($this->category, $this->id_tov);
-                        ?>
-                    </tbody>
                   </table>
           </td></tr>
 	  <tr><td colspan="2">
