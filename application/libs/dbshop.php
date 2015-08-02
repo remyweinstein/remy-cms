@@ -490,6 +490,19 @@ class dBShop extends dB {
     	return $result['name'];
     }
     
+    public static function newPropName($data) {
+    	$result = false;
+    	if($data) {
+            $query = self::$database->prepare("INSERT ".PREFIX."items_prop_names (id, name, sort) VALUES (:id, :name, :sort)");
+            $result = $query->execute(array(
+    				':id'  => '',
+    				':name'  => $data['name'],
+    				':sort'  => 0
+                                ));
+    	}
+        $result = self::$database->lastInsertId();
+    	return $result;
+    }
     
     // *****************************
     //       Таблица Prop_values
@@ -504,6 +517,20 @@ class dBShop extends dB {
     	return $result;
     }
 
+    public static function newPropValue($pid,$value) {
+    	$result = false;
+    	if($pid) {
+            $query = self::$database->prepare("INSERT ".PREFIX."items_prop_values (id, pid, name, sort) VALUES (:id, :pid, :name, :sort)");
+            $result = $query->execute(array(
+    				':id'  => '',
+    				':pid'  => $pid,
+    				':name'  => $value,
+    				':sort'  => 0
+                                ));
+    	}
+        $result = self::$database->lastInsertId();
+    	return $result;
+    }
     
     
     

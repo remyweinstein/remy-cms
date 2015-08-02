@@ -24,9 +24,30 @@ class Ajax_Model {
         
     }
     
+    public function addnewpropvalue($data) {
+        $data = explode(":", $data);
+        $pid = $data[1];
+        $value = $data[3];
+        $query = dBShop::newPropValue($pid, $value);
+
+        return $query;
+    }
+    
+    public function addnewprop($dat) {
+        $dat = explode(":", $dat);
+        $data['name'] = $dat[1];
+        $value = $dat[3];
+        $result = dBShop::newPropName($data);
+        if($result>0) {
+            $vid = dBShop::newPropValue($result, $value);
+        }
+        return $result;
+    }
+    
     public function addpropstocat($data){
         $category = $data;
         $result = '<div id="popup_name" class="popup_block">
+                <div id="popup_block_list">
                 ';
         $props_cat = dBShop::getCatProps($category);
         $all_props = dBShop::getAllProps();
@@ -38,7 +59,13 @@ class Ajax_Model {
                 ';
             }
         }
-        $result .= '
+        $result .= '</div>
+            <div style="clear:both;width:100%;">&nbsp;</div>
+            <div style="padding:10px 30px 10px 0px;">
+                Характеристика товара: <input type="text" name="newprop" id="newprop" value=""/> например, Производитель<br>
+                Значение: <input type="text" name="newvalue" id="newvalue" value=""/> например, Россия<br>
+                <button onclick="AddNewProp('.$category.');">Добавить</button>
+            </div>
             </div>
                 ';
         

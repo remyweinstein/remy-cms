@@ -52,7 +52,7 @@ class Goods_Model {
                         $name_prop = dBShop::getPropName($props[$y]);
                         $values = dBShop::getPropValues($props[$y]);
                         $content .= '<tr><td>'.$name_prop.'</td><td>
-                        <select name="prop['.$props[$y].']">
+                        <select name="prop['.$props[$y].']" id="prop_'.$props[$y].'" onChange="if($(\'#prop_'.$props[$y].' :selected\').val() == \'addvid\'){AddNewPropValue(\''.$props[$y].'\');}">
                         ';
                         for($i=0;$i<count($values);$i++) {
                             $content .= '<option value="'.$values[$i]['id'].'"';
@@ -62,7 +62,8 @@ class Goods_Model {
                             $content .= '>'.$values[$i]['name'].'</option>
                             ';
                         }
-                        $content .= '</select>
+                        $content .= '<option value="addvid">--Добавить--</option>
+                            </select>
                         </td>
                         </tr>
                         ';
