@@ -1,6 +1,7 @@
 <?php
 
-Error_Reporting(1);
+error_reporting(1);
+
 session_start();
 header('Content-Type: text/html; charset=utf-8');
 
@@ -21,7 +22,7 @@ define('HTTP_HOST', 'http://'.$_SERVER['HTTP_HOST'].'/');
 define('HOST_RES', HTTP_HOST.'resources/');
 define('HOST_SCRIPTS', HTTP_HOST.'scripts/');
 
-$includePath = array(APP_DIR, APP_LIBS, APP_MODELS, APP_CONTROLS);
+$includePath = array(APP_LIBS, APP_MODELS, APP_CONTROLS);
 set_include_path('.'.PATH_SEPARATOR.implode(PATH_SEPARATOR, $includePath));
 
 function __autoload($className) {
@@ -29,4 +30,4 @@ function __autoload($className) {
 	return include_once $path.'.php';
 }
 
-require_once ('bootstrap.php');
+require_once (APP_DIR . 'bootstrap.php');

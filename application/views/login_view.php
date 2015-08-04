@@ -1,5 +1,5 @@
 <?php 
-if(Engine::$user->$Role != false) {
+if(Engine::$user->Role != false) {
 ?>
     Вы уже авторизованы на сайте!
 <?php

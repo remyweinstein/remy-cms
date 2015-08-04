@@ -20,18 +20,13 @@
 	  <tr><td>URL:</td><td><input type="text" id="edit_url" name="edit_url" value="" size="100" /></td></tr>
 	  <tr><td>Изображение:</td><td><input type="file" name="edit_pic_url" /></td></tr>
 	  
-	  <tr><td>Категория:</td><td><select name="edit_category" id="edit_category">
-	     <?php echo $this->model->printCats() ?>
-	     </select>
+	  <tr><td>Категория:</td><td>
+	     <?php echo $this->model->printCatsForGoods($this->category) ?>
 	  </td></tr>
 	  <tr><td colspan="2">
-                  <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th colspan="2">Характеристики товара:&nbsp;(Характеристики можно добавить после сохранения нового товара)</th>
-                        </tr>
-                    </thead>
-                  </table>
+                        <?php
+                        echo $this->model->printPropsForGoods($this->category, 0);
+                        ?>
           </td></tr>
 	  <tr><td colspan="2">
                   Показывать товар:&nbsp;<input type="checkbox" name="edit_view_menu" value="1" checked />&nbsp;&nbsp;&nbsp;&nbsp;
@@ -39,7 +34,20 @@
                   Показывать в Рекомендуемых:&nbsp;<input type="checkbox" name="edit_favorite" value="1" />
           </td></tr>
 	  <input type="hidden" name="edit_item" value="<?php echo $_GET['edit_item'] ?>" />
-	  <tr class="variants"><td colspan="2">
+	  <tr><td colspan="2">
+                  <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Варианты:&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php 
+                        echo $this->model->printSkus($this->category, $this->id_tov);
+                        ?>
+                    </tbody>
+                  </table>
+          </td></tr>	  <tr class="variants"><td colspan="2">
                 Артикул:&nbsp;<input type="text" name="variants_articul[]" value="" style="width:150px;" />&nbsp;
                 Цена:&nbsp;<input type="text" name="variants_price[]" value="" style="width:60px;" />&nbsp;
                 Старая цена:&nbsp;<input type="text" name="variants_price_old[]" style="width:60px;" value="" />&nbsp;
@@ -55,7 +63,6 @@
 	  </table>
 	  </form>
 	  <script>
-	    $("#edit_category [value=\'<?php echo $_GET['get_cat'] ?>\']").attr("selected", "selected");
             function addVariant() {
                 var id = Math.floor(Math.random() * (999999 - 123211 + 1)) + 123211;
                 $(".variants").after('<tr id="'+id+'"><td colspan="2">Артикул:&nbsp;<input type="text" name="variants_articul[]" value="" style="width:150px;" />&nbsp;&nbsp;Цена:&nbsp;<input type="text" name="variants_price[]" value="" style="width:60px;" />&nbsp;&nbsp;Старая цена:&nbsp;<input type="text" name="variants_price_old[]" style="width:60px;" value="" />&nbsp;&nbsp;Вес:&nbsp;<input type="text" name="variants_weight[]" value="" style="width:50px;" />&nbsp;&nbsp;Количество:&nbsp;<input type="text" name="variants_quantity[]" value="" style="width:50px;" />&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onClick="deleteVariant(\''+id+'\'); return false;">Удалить</a><input type="hidden" name="variants_pic_url[]" value= "" /></td></tr>');

@@ -40,9 +40,21 @@ class Goods_Model {
             }
             return $content;
         }
+
+	public function printSkus($category, $id_tov) {
+            
+        }
         
-	public function printProps($category, $id_tov) {
-		$content = '';
+	public function printPropsForGoods($category, $id_tov) {
+                $empty_cat = ($category==0)?'(Характеристики можно добавить после сохранения)':'';
+		$content = '                  <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Характеристики товара:&nbsp;'.$empty_cat.'</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    ';
                 if($category>0) {
                     $props = dBShop::getCatProps($category);
                     if($id_tov>0) {
@@ -69,21 +81,30 @@ class Goods_Model {
                         ';
                     }
                 }
+                $content .= '                    </tbody>
+                  </table>
+                  ';
 		return $content;
 	}
 	
-	public function printCats($parent = 0, $level = 0) {
-		$content = '';
+	public function printCatsForGoods($category, $parent = 0, $level = 0) {
+                $disabled = ($category > 0)?' disabled':'';
+		$content = '<select name="edit_category" id="edit_category" '.$disabled.'>';
 		$tire = '';
 	
 		for($i=0;$i<$level;$i++) $tire .= '-';
 		$result = dBShop::getAllCatsForTree($parent);
 		for($i=0;$i<count($result);$i++) {
-			$content .= '<option value="'.$result[$i]['id'].'"> '.$tire.' '.$result[$i]['title'].'</option>
+			$content .= '<option value="'.$result[$i]['id'].'"';
+                        if($category == $result[$i]['id']) {
+                            $content .= ' selected';
+                        }
+                        $content .= '> '.$tire.' '.$result[$i]['title'].'</option>
 			';
 			if($result[$i]['is_parent'] == 1) $content .= $this->printCats($result[$i]['id'], $level + 1);
 		}
-	
+                $content .= '</select>
+                        ';
 		return $content;
 	}
 	

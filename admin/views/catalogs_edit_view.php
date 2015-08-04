@@ -20,18 +20,7 @@
   </td></tr>
   <tr><td>Показывать в меню:</td><td><input type="checkbox" name="edit_view_menu" value="1"<?php echo $this->temp_view_menu ?> /></td></tr>
   <tr><td colspan="2">
-                  <table class="table table-striped" id="table-add-props">
-                    <thead>
-                        <tr>
-                            <th>Характеристики:&nbsp;<a href="#" rel="<?php echo $this->category ?>" class="poplight">Добавить характеристики</a></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php 
-                        echo $this->model->printProps($this->category);
-                        ?>
-                    </tbody>
-                  </table>
+    <?php echo $this->model->printPropsForCat($this->category); ?>
   </td></tr>
   <tr><td colspan="2"><textarea name="edit_content" style="width:100%;height:500px;"><?php echo $this->edit_categorys['content'] ?></textarea></td></tr>
   <tr><td colspan="2"><a href="<?php echo $this->temporary_url; ?>" target="_blank" class="btn btn-warning btn-sm"><i class="glyphicon glyphicon-share-alt"></i> Показать на сайте</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

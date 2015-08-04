@@ -1,13 +1,12 @@
 <?php
 
-class auth_Controller extends Base_Controller {
-    private $model;
+class auth_controller extends Base_Controller {
     public $error_message="";
     public $ref_link;
 
     public function __construct() {
         parent::__construct();
-            
+        
         $this->model = new auth_Model();
         
         if(Engine::$curUrlName=="login") {
@@ -24,13 +23,13 @@ class auth_Controller extends Base_Controller {
     private function procInputReg() {
         if(isset($_POST['action']) && $_POST['action'] == "registration") {
             if(!preg_match("/^[a-zA-Z0-9]+$/",$_POST['reg_login'])) {
-                $this->error_message = "Логин может состоять только из букв английского алфавита и цифр";
+                $this->error_message = "Логин может состоять только из букв латинского алфавита и/или цифр";
             }
             if(strlen($_POST['reg_login']) < 3 or strlen($_POST['reg_login']) > 30) {
-            $this->error_message = "Логин должен быть не меньше 3-х символов и не больше 30";
+            $this->error_message = "Логин должен быть менее 3-х символов и не более 30";
             }
             if($this->model->countUserByLogin($_POST['reg_login']) > 0) {
-                $this->error_message = "Пользователь с таким логином уже существует в базе данных";
+                $this->error_message = "Пользователь с таким логином уже зарегистрирован";
             }
             if($this->error_message == "") {
                 $data['login'] = $_POST['reg_login'];

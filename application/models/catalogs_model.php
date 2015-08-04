@@ -7,8 +7,16 @@ class catalogs_Model {
     }
     
     
-	public function printProps($category) {
-		$content = '';
+	public function printPropsForCat($category) {
+                $empty_cat = ($category == 0)?'(Характеристики можно добавить после сохранения)':'<a href="#" rel="<?php echo $this->category ?>" class="poplight">Добавить характеристики</a>';
+		$content = '                  <table class="table table-striped" id="table-add-props">
+                    <thead>
+                        <tr>
+                            <th>Характеристики:&nbsp;'.$empty_cat.'</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    ';
                 if($category>0) {
                     $props = dBShop::getCatProps($category);
                     for($y=0;$y<count($props);$y++) {
@@ -17,6 +25,9 @@ class catalogs_Model {
                         ';
                     }
                 }
+                $content .= '                    </tbody>
+                  </table>
+                    ';                
 		return $content;
 	}
     

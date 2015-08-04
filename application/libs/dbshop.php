@@ -448,8 +448,10 @@ class dBShop extends dB {
     }
     
     public static function getCatProps($category) {
-    	$query = self::$database->prepare("SELECT `pid` FROM ".PREFIX."items_cat_props WHERE `id_cat`=".$category);
-    	$query->execute(array());
+    	$query = self::$database->prepare("SELECT `pid` FROM ".PREFIX."items_cat_props WHERE `id_cat`=:id_cat");
+    	$query->execute(array(
+            ':id_cat'  => $category
+        ));
     	$temp = $query->fetchAll();
         for($i=0;$i<count($temp);$i++) {
             $result[] = $temp[$i]['pid'];
