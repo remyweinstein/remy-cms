@@ -355,7 +355,7 @@ class dBShop extends dB {
     	$result = false;
     	if($data) {
             for($i=0;$i<count($data['price']);$i++) {
-            $query = self::$database->prepare("UPDATE ".PREFIX."items_skus SET id_item=:id_item, articul=:articul, price=:price, old_price=:old_price, weight=:weight, quantity=:quantity, pic_url=:pic_url, skus=:skus WHERE id=:id");
+            $query = self::$database->prepare("UPDATE ".PREFIX."items_skus SET id_item=:id_item, articul=:articul, price=:price, old_price=:old_price, weight=:weight, quantity=:quantity, skus=:skus WHERE id=:id");
             $result = $query->execute(array(
                                 ':id'  => $data['id'][$i],
     				':id_item'  => $data['id_item'][$i],
@@ -364,7 +364,6 @@ class dBShop extends dB {
     				':old_price'  => $data['old_price'][$i],
     				':weight'  => $data['weight'][$i],
     				':quantity'  => $data['quantity'][$i],
-    				':pic_url'  => $data['pic_url_sku'][$i],
                                 ':skus'  => $data['skus'][$i]
     				 ));
             }
@@ -376,7 +375,7 @@ class dBShop extends dB {
     	$result = false;
     	if($data) {
             for($i=0;$i<count($data['price']);$i++) {
-            $query = self::$database->prepare("INSERT ".PREFIX."items_skus (id, id_item, articul, price, old_price, weight, quantity, pic_url, skus) VALUES (:id, :id_item, :articul, :price, :old_price, :weight, :quantity, :pic_url, :skus)");
+            $query = self::$database->prepare("INSERT ".PREFIX."items_skus (id, id_item, articul, price, old_price, weight, quantity, skus) VALUES (:id, :id_item, :articul, :price, :old_price, :weight, :quantity, :skus)");
             $result = $query->execute(array(
     				':id'  => '',
     				':id_item'  => $id_item,
@@ -385,7 +384,6 @@ class dBShop extends dB {
     				':old_price'  => $data['old_price'][$i],
     				':weight'  => $data['weight'][$i],
     				':quantity'  => $data['quantity'][$i],
-    				':pic_url'  => $data['pic_url_sku'][$i],
                                 ':skus'  => $data['skus'][$i]
                                 ));
             }
