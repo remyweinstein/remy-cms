@@ -76,7 +76,16 @@ function AddSkuToGoods(sid, name) { // Добавляем новый SKU в то
     var data = 'sid:' + sid + ':name:' + name;
     $('#div_sku_' + sid).remove();
     $('#table-add-skus').append('<tr id="sku'+sid+'"><td>'+name+'&nbsp;<a href="#" onClick="UnlinkSkuFromGoods('+sid+'); return false;" alt="Отвязать характеристику" title="Отвязать характеристику"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');
-    
+    /*
+    <tr class="variants" id="sku_varint_0"><td colspan="2">
+                Артикул:&nbsp;<input type="text" name="variants_articul[0]" value="" style="width:150px;" />&nbsp;
+                Цена:&nbsp;<input type="text" name="variants_price[0]" value="" style="width:60px;" />&nbsp;
+                Старая цена:&nbsp;<input type="text" name="variants_price_old[0]" style="width:60px;" value="" />&nbsp;
+                Вес:&nbsp;<input type="text" name="variants_weight[0]" value="" style="width:50px;" />&nbsp;
+                Количество:&nbsp;<input type="text" name="variants_quantity[0]" value="" style="width:50px;" />&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="hidden" name="variants_skus[0]" value= "" />
+    </td></tr>
+     */
     return false;
 }
 function AddPropToCat(pid, category, name) { // Добавляем новый PROP в категориях
