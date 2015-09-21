@@ -8,7 +8,7 @@ class catalogs_Model {
     
     
 	public function printPropsForCat($category) {
-                $empty_cat = ($category == 0)?'(Характеристики можно добавить после сохранения)':'<a href="#" rel="<?php echo $this->category ?>" class="poplight">Добавить характеристики</a>';
+                $empty_cat = ($category == 0)?'(Характеристики можно добавить после сохранения)':'<a href="#" rel="<?php echo $this->category ?>" class="poplight popup_cats">Добавить характеристики</a>';
 		$content = '                  <table class="table table-striped" id="table-add-props">
                     <thead>
                         <tr>
@@ -27,7 +27,7 @@ class catalogs_Model {
                 }
                 $content .= '                    </tbody>
                   </table>
-                    ';                
+                    ';
 		return $content;
 	}
     

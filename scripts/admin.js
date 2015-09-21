@@ -1,4 +1,4 @@
-function UnlinkPropFromCat(pid, category) {
+function UnlinkPropFromCat(pid, category) { // Отвязываем PROP от категории
     var data = 'pid:' + pid + ':category:' + category;
     $.ajax({
         type: "POST",
@@ -12,25 +12,14 @@ function UnlinkPropFromCat(pid, category) {
     return false;
 }
 
-function AddNewPropValue(pid) {
-    var win = '<div id="popup_name" class="popup_block"><div style="padding:10px 30px 10px 0px;">Значение:&nbsp;<input type="text" name="newvalue" id="newvalue" value=""/>&nbsp;<button onclick="AddNewValue(' + pid + ', $(\'#newvalue\').val());">Добавить</button></div></div>';
-    var popID = "popup_name";
-    var popWidth = 700;
-    $("body").append(win);
-    $('#' + popID).fadeIn().css({ 'width': Number( popWidth ) }).prepend('<a href="#" title="Закрыть" class="close"></a>');
-    var popMargTop = ($('#' + popID).height() + 80) / 2;
-    var popMargLeft = ($('#' + popID).width() + 80) / 2;
-    $('#' + popID).css({ 
-    'margin-top' : -popMargTop,
-    'margin-left' : -popMargLeft
-    });
-    $('body').append('<div id="fade"></div>');
-    $('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn();
+function UnlinkSkuFromGoods(sid) { // Удаляем SKU из товаров
     
+    $('#sku' + sid).remove();
+    // id="sku_varint_0
     return false;
 }
 
-function AddNewValue(pid, value) {
+function AddNewValue(pid, value) { // Добавляем новое значение PROP в категориях
     if(value !== "") {
         $.ajax({
             type: "POST",
@@ -45,8 +34,25 @@ function AddNewValue(pid, value) {
     }
     return false;
 }
-
-function AddNewProp(category) {
+function AddNewSkuName(){ // Добавляем новый SKU В ОКНО в товарах
+    var name = $('#newskuname').val();
+    if(name !== "") {
+        $.ajax({
+            type: "POST",
+            url: "/ajax/addnewskuname",
+            dataType: "text",
+            data: "data=" + name,
+            success: function(sid) {
+                if(sid>0) {
+                    $('#popup_block_list').append('<div id="div_sku_' + sid + '" style="padding:10px 30px 10px 0px;float:left;"><a href="#" onClick="AddSkuToGoods(' + sid + ', \'' + name + '\');">' + name + '</a></div>');
+                    $('#newskuname').val('');
+                }
+            }
+        });
+    }
+    return false;
+}
+function AddNewProp(category) { // Добавляем новый PROP В ОКНО в категориях
     var name = $('#newprop').val();
     var value = $('#newvalue').val();
     if(name !== "" && value !== "") {
@@ -66,8 +72,14 @@ function AddNewProp(category) {
     }
     return false;
 }
-
-function AddPropToCat(pid, category, name) {
+function AddSkuToGoods(sid, name) { // Добавляем новый SKU в товарах
+    var data = 'sid:' + sid + ':name:' + name;
+    $('#div_sku_' + sid).remove();
+    $('#table-add-skus').append('<tr id="sku'+sid+'"><td>'+name+'&nbsp;<a href="#" onClick="UnlinkSkuFromGoods('+sid+'); return false;" alt="Отвязать характеристику" title="Отвязать характеристику"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');
+    
+    return false;
+}
+function AddPropToCat(pid, category, name) { // Добавляем новый PROP в категориях
     var data = 'pid:' + pid + ':category:' + category;
     $('#div_prop_' + pid).remove();
     $.ajax({
@@ -83,7 +95,55 @@ function AddPropToCat(pid, category, name) {
 }
 
 $(document).ready(function(){
-    $('a.poplight[href^=#]').click(function() {
+    //$('#sku_varint_0').remove();
+    //if($(".variants").is("#sku_varint_0")){
+    //    alert('yes');
+    //}
+    function AddNewPropValue(pid) { // Всплыващее окно добавления ЗНАЧЕНИЯ PROPS в категориях
+        var win = '<div id="popup_name" class="popup_block"><div style="padding:10px 30px 10px 0px;">Значение:&nbsp;<input type="text" name="newvalue" id="newvalue" value=""/>&nbsp;<button onclick="AddNewValue(' + pid + ', $(\'#newvalue\').val());">Добавить</button></div></div>';
+        var popID = "popup_name";
+        var popWidth = 700;
+        $("body").append(win);
+        $('#' + popID).fadeIn().css({ 'width': Number( popWidth ) }).prepend('<a href="#" title="Закрыть" class="close"></a>');
+        var popMargTop = ($('#' + popID).height() + 80) / 2;
+        var popMargLeft = ($('#' + popID).width() + 80) / 2;
+        $('#' + popID).css({ 
+            'margin-top' : -popMargTop,
+            'margin-left' : -popMargLeft
+        });
+        $('body').append('<div id="fade"></div>');
+        $('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn();
+    
+        return false;
+    }
+
+    $('a.popup_goods').click(function() { // Всплыващее окно добавления SKU в товарах
+	var popID = "popup_name";
+        var item = $(this).attr('rel');
+	var popWidth = 700;
+        $.ajax({
+            type: "POST",
+            url: "/ajax/addskustogoods",
+            dataType: "text",
+            data: "data=" + item,
+            success: function(data) {
+                $("body").append(data);
+                $('#' + popID).fadeIn().css({ 'width': Number( popWidth ) }).prepend('<a href="#" title="Закрыть" class="close"></a>');
+                var popMargTop = ($('#' + popID).height() + 80) / 2;
+                var popMargLeft = ($('#' + popID).width() + 80) / 2;
+                $('#' + popID).css({ 
+                    'margin-top' : -popMargTop,
+                    'margin-left' : -popMargLeft
+                });
+            }
+        });
+	$('body').append('<div id="fade"></div>');
+	$('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn();
+        
+ 	return false;
+    });
+    
+    $('a.popup_cats').click(function() { // Всплыващее окно добавления PROPS в категориях
 	var popID = "popup_name";
         var category = $(this).attr('rel');
 	var popWidth = 700;
@@ -108,7 +168,8 @@ $(document).ready(function(){
         
  	return false;
     });
-    $(document).on('click', 'a.close, #fade', function() {
+    
+    $(document).on('click', 'a.close, #fade', function() { // Закрываем всплывающее окно POPUP_NAME
         $('#popup_name').remove();
         $('#fade , .popup_block').fadeOut(function() {
             $('#fade, a.close').remove();

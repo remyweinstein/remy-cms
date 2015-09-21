@@ -42,7 +42,19 @@ class Goods_Model {
         }
 
 	public function printSkus($category, $id_tov) {
+            $content = '                  <table class="table table-striped" id="table-add-skus">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Варианты:&nbsp;<a href="#" rel="" class="poplight popup_goods">Добавить варианты</a></th>
+                        </tr>
+                    </thead>
+                    <tbody>';
             
+            $content .= '</tbody>
+                  </table>
+                    ';
+            
+            return $content;
         }
         
 	public function printPropsForGoods($category, $id_tov) {

@@ -364,7 +364,7 @@ class dBShop extends dB {
     				':old_price'  => $data['old_price'][$i],
     				':weight'  => $data['weight'][$i],
     				':quantity'  => $data['quantity'][$i],
-    				':pic_url'  => $data['pic_url'][$i],
+    				':pic_url'  => $data['pic_url_sku'][$i],
                                 ':skus'  => $data['skus'][$i]
     				 ));
             }
@@ -385,7 +385,7 @@ class dBShop extends dB {
     				':old_price'  => $data['old_price'][$i],
     				':weight'  => $data['weight'][$i],
     				':quantity'  => $data['quantity'][$i],
-    				':pic_url'  => $data['pic_url'][$i],
+    				':pic_url'  => $data['pic_url_sku'][$i],
                                 ':skus'  => $data['skus'][$i]
                                 ));
             }
@@ -413,18 +413,6 @@ class dBShop extends dB {
                                 ));
     	}
         
-    	return $result;
-    }
-    
-    public static function deletePicVariant($id) {
-    	$result = false;
-    	$query = self::$database->prepare("UPDATE ".PREFIX."items_skus SET pic_url='' WHERE id=:id");
-    	$result = $query->execute(array(
-                                ':id'  => $id ));
-    	if($result) {
-            $edit_item = self::getItemById($id);
-            unlink(Engine::$settings['main_host'].Engine::$settings['directory_pictures'].'/'.$edit_item['pic_url']);
-    	}
     	return $result;
     }
     
@@ -535,8 +523,33 @@ class dBShop extends dB {
     }
     
     
+    // *****************************
+    //       Таблица Sku_names
+    // *****************************
     
+ 
     
+    public static function getAllSkuNames() {
+    	$result = false;
+    	$query = self::$database->prepare("SELECT `id`,`name` FROM ".PREFIX."items_sku_names ORDER BY `id`");
+    	$query->execute(array());
+    	$result = $query->fetchAll();
+    	return $result;
+    }
+    
+    public static function newSkuName($data) {
+    	$result = false;
+    	if($data) {
+            $query = self::$database->prepare("INSERT ".PREFIX."items_sku_names (id, name, sort) VALUES (:id, :name, :sort)");
+            $result = $query->execute(array(
+    				':id'  => '',
+    				':name'  => $data['name'],
+    				':sort'  => 0
+                                ));
+    	}
+        $result = self::$database->lastInsertId();
+    	return $result;
+    }
     
     
 }

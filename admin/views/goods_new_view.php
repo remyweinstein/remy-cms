@@ -35,26 +35,17 @@
           </td></tr>
 	  <input type="hidden" name="edit_item" value="<?php echo $_GET['edit_item'] ?>" />
 	  <tr><td colspan="2">
-                  <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th colspan="2">Варианты:&nbsp;</th>
-                        </tr>
-                    </thead>
-                    <tbody>
                         <?php 
                         echo $this->model->printSkus($this->category, $this->id_tov);
                         ?>
-                    </tbody>
-                  </table>
-          </td></tr>	  <tr class="variants"><td colspan="2">
-                Артикул:&nbsp;<input type="text" name="variants_articul[]" value="" style="width:150px;" />&nbsp;
-                Цена:&nbsp;<input type="text" name="variants_price[]" value="" style="width:60px;" />&nbsp;
-                Старая цена:&nbsp;<input type="text" name="variants_price_old[]" style="width:60px;" value="" />&nbsp;
-                Вес:&nbsp;<input type="text" name="variants_weight[]" value="" style="width:50px;" />&nbsp;
-                Количество:&nbsp;<input type="text" name="variants_quantity[]" value="" style="width:50px;" />&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="#" onClick="addVariant(); return false;"><i class="glyphicon glyphicon-plus"></i>&nbsp;Добавить</a>
-                <input type="hidden" name="variants_pic_url[]" value= "" />
+          </td></tr>
+          <tr class="variants" id="sku_varint_0"><td colspan="2">
+                Артикул:&nbsp;<input type="text" name="variants_articul[0]" value="" style="width:150px;" />&nbsp;
+                Цена:&nbsp;<input type="text" name="variants_price[0]" value="" style="width:60px;" />&nbsp;
+                Старая цена:&nbsp;<input type="text" name="variants_price_old[0]" style="width:60px;" value="" />&nbsp;
+                Вес:&nbsp;<input type="text" name="variants_weight[0]" value="" style="width:50px;" />&nbsp;
+                Количество:&nbsp;<input type="text" name="variants_quantity[0]" value="" style="width:50px;" />&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="hidden" name="variants_skus[0]" value= "" />
           </td></tr>
 	  <tr><td colspan="2"><textarea name="edit_annotation" style="width:100%;height:200px;"><?php echo $edit_items['annotation'] ?></textarea></td></tr>
           <tr><td colspan="2"><textarea name="edit_content" style="width:100%;height:500px;"></textarea></td></tr>
@@ -63,13 +54,7 @@
 	  </table>
 	  </form>
 	  <script>
-            function addVariant() {
-                var id = Math.floor(Math.random() * (999999 - 123211 + 1)) + 123211;
-                $(".variants").after('<tr id="'+id+'"><td colspan="2">Артикул:&nbsp;<input type="text" name="variants_articul[]" value="" style="width:150px;" />&nbsp;&nbsp;Цена:&nbsp;<input type="text" name="variants_price[]" value="" style="width:60px;" />&nbsp;&nbsp;Старая цена:&nbsp;<input type="text" name="variants_price_old[]" style="width:60px;" value="" />&nbsp;&nbsp;Вес:&nbsp;<input type="text" name="variants_weight[]" value="" style="width:50px;" />&nbsp;&nbsp;Количество:&nbsp;<input type="text" name="variants_quantity[]" value="" style="width:50px;" />&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onClick="deleteVariant(\''+id+'\'); return false;">Удалить</a><input type="hidden" name="variants_pic_url[]" value= "" /></td></tr>');
-            }
-            function deleteVariant(id) {
-                $('#'+id).remove();
-            }
+
 function translit(){
 // Символ, на который будут заменяться все спецсимволы
 var space = '-'; 

@@ -30,11 +30,6 @@ class goods_Controller extends Base_Controller {
                             $item_old_price = $_POST['variants_price_old'][0];
                             $item_weight = $_POST['variants_weight'][0];
                         }
-			if(isset($_FILES['edit_pic_url'])) {
-				$data['pic_url'] = Engine::UploadFile($_FILES['edit_pic_url']);
-			} else {
-				$data['pic_url'] = $_POST['edit_pic_url'];
-			}
                         
                         $edit_variants_skus = '';
                         $variants_skus = '';
@@ -67,7 +62,6 @@ class goods_Controller extends Base_Controller {
                         $edit_variants['old_price'] = $_POST['edit_variants_price_old'];
                         $edit_variants['weight'] = $_POST['edit_variants_weight'];
                         $edit_variants['quantity'] = $_POST['edit_variants_quantity'];
-                        $edit_variants['pic_url'] = $_POST['edit_variants_pic_url'];
                         
                         $variants['skus'] = $variants_skus;
                         $variants['articul'] = $_POST['variants_articul'];
@@ -75,7 +69,6 @@ class goods_Controller extends Base_Controller {
                         $variants['old_price'] = $_POST['variants_price_old'];
                         $variants['weight'] = $_POST['variants_weight'];
                         $variants['quantity'] = $_POST['variants_quantity'];
-                        $variants['pic_url'] = $_POST['variants_pic_url'];
                         
 			if($_POST['edit_item'] > 0) {         // Редактируем товар
                             dBShop::updateItem($data);
