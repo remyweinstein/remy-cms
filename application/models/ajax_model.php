@@ -53,7 +53,27 @@ class Ajax_Model {
         
         return $result;
     }
-    
+    public function addnewvalueskutogoods($data) {
+        $result = '<div id="popup_name" class="popup_block">
+                <div id="popup_block_list">
+                ';
+        $all_skus_names = dBShop::getSkuValues($data);
+        for($i=0;$i<count($all_skus_names);$i++){
+            $result .= '<div id="div_sku_'.$all_skus_names[$i]['id'].'" style="padding:10px 30px 10px 0px;float:left;">
+                    <a href="#" onClick="AddSkuToGoods('.$all_skus_names[$i]['id'].', \''.$all_skus_names[$i]['name'].'\');">'
+                    .$all_skus_names[$i]['name'].
+                    '</a></div>
+                    ';
+        }
+        $result .= '            <div style="clear:both;width:100%;">&nbsp;</div>
+            <div style="padding:10px 30px 10px 0px;">
+                Варианты товара: <input type="text" name="newskuname" id="newskuname" value=""/> например, Размер<br>
+                <button onclick="AddNewSkuName();">Добавить</button>
+            </div>
+            </div>';
+        
+        return $result;        
+    }
     public function addskustogoods($data){
         //$id = $data;
         $result = '<div id="popup_name" class="popup_block">

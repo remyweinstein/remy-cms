@@ -550,4 +550,35 @@ class dBShop extends dB {
     }
     
     
+    // *****************************
+    //       Таблица Sku_Values
+    // *****************************
+    
+ 
+    
+    public static function getSkuValues($sid) {
+    	$result = false;
+    	$query = self::$database->prepare("SELECT * FROM ".PREFIX."items_sku_values WHERE `sid`='".$sid."' ORDER BY `id`");
+    	$query->execute(array());
+    	$result = $query->fetchAll();
+    	return $result;
+    }
+    
+    public static function newSkuValue($data) {
+    	$result = false;
+    	if($data) {
+            $query = self::$database->prepare("INSERT ".PREFIX."items_sku_values (id, sid, name, sort, pic_url) VALUES (:id, :sid, :name, :sort, :pic_url)");
+            $result = $query->execute(array(
+    				':id'  => '',
+    				':sid'  => $data['sid'],
+    				':name'  => $data['name'],
+    				':sort'  => 0,
+    				':pic_url'  => $data['pic_url']
+                                ));
+    	}
+        $result = self::$database->lastInsertId();
+    	return $result;
+    }
+    
+    
 }

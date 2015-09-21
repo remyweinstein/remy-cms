@@ -75,7 +75,7 @@ function AddNewProp(category) { // Добавляем новый PROP В ОКН�
 function AddSkuToGoods(sid, name) { // Добавляем новый SKU в товарах
     var data = 'sid:' + sid + ':name:' + name;
     $('#div_sku_' + sid).remove();
-    $('#table-add-skus').append('<tr id="sku'+sid+'"><td>'+name+'&nbsp;<a href="#" onClick="UnlinkSkuFromGoods('+sid+'); return false;" alt="Отвязать характеристику" title="Отвязать характеристику"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');
+    $('#table-add-skus').append('<tr id="sku'+sid+'"><td>'+name+'&nbsp;<a href="#" onClick="AddSkuValueFromGoods('+sid+'); return false;" alt="Добавить значение" title="Добавить значение"><i class="glyphicon glyphicon-plus"></i></a>&nbsp;<a href="#" onClick="UnlinkSkuFromGoods('+sid+'); return false;" alt="Отвязать характеристику" title="Отвязать характеристику"><i class="glyphicon glyphicon-trash"></i></a></td></tr>');
     /*
     <tr class="variants" id="sku_varint_0"><td colspan="2">
                 Артикул:&nbsp;<input type="text" name="variants_articul[0]" value="" style="width:150px;" />&nbsp;
@@ -108,6 +108,29 @@ $(document).ready(function(){
     //if($(".variants").is("#sku_varint_0")){
     //    alert('yes');
     //}
+    function AddSkuValueFromGoods(sid) { // Всплывающее окно добавления нового значения SKU
+	var popID = "popup_name";
+	var popWidth = 700;
+        $.ajax({
+            type: "POST",
+            url: "/ajax/addnewvalueskutogoods",
+            dataType: "text",
+            data: "data=" + sid,
+            success: function(data) {
+                $("body").append(data);
+                $('#' + popID).fadeIn().css({ 'width': Number( popWidth ) }).prepend('<a href="#" title="Закрыть" class="close"></a>');
+                var popMargTop = ($('#' + popID).height() + 80) / 2;
+                var popMargLeft = ($('#' + popID).width() + 80) / 2;
+                $('#' + popID).css({
+                    'margin-top' : -popMargTop,
+                    'margin-left' : -popMargLeft
+                });
+            }
+        });
+	$('body').append('<div id="fade"></div>');
+	$('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn();
+ 	return false;
+    }
     function AddNewPropValue(pid) { // Всплыващее окно добавления ЗНАЧЕНИЯ PROPS в категориях
         var win = '<div id="popup_name" class="popup_block"><div style="padding:10px 30px 10px 0px;">Значение:&nbsp;<input type="text" name="newvalue" id="newvalue" value=""/>&nbsp;<button onclick="AddNewValue(' + pid + ', $(\'#newvalue\').val());">Добавить</button></div></div>';
         var popID = "popup_name";
